@@ -7,14 +7,24 @@ public class User {
     private String avatar;
     private int phoneNumber;
     private String address;
+    private int id;
 
-    public User(String account, String password, String email, String avatar, int phoneNumber, String address) {
+    public User(int id,String account, String password, String email, String avatar, int phoneNumber, String address) {
+        this.id=id;
         this.account = account;
         this.password = password;
         this.email = email;
         this.avatar = avatar;
         this.phoneNumber = phoneNumber;
         this.address = address;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAccount() {
