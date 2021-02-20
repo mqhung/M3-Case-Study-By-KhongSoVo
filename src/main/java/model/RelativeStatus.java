@@ -1,9 +1,11 @@
 package model;
 
 public class RelativeStatus {
+    private int id;
     private String status;
 
-    public RelativeStatus(String status) {
+    public RelativeStatus(int id, String status) {
+        this.id=id;
         this.status = status;
     }
 
@@ -13,5 +15,13 @@ public class RelativeStatus {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
