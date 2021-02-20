@@ -1,14 +1,24 @@
 package model;
 
 public class RelationShip {
+    private int id;
     private int user_id;
     private int friend_id;
     private int relative_status_id;
 
-    public RelationShip(int user_id, int friend_id, int relative_status_id) {
+    public RelationShip(int id, int user_id, int friend_id, int relative_status_id) {
+        this.id=id;
         this.user_id = user_id;
         this.friend_id = friend_id;
         this.relative_status_id = relative_status_id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getUser_id() {
