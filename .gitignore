@@ -1,3 +1,5 @@
 .gradle/
 .idea/
 .build/
+/src/main/webapp/image_post/
+/src/main/java/storage/
