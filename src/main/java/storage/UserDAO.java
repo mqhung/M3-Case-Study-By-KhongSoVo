@@ -13,7 +13,7 @@ public class UserDAO implements IUser {
     private static String user = "root";
     private static String password = "hunghip12";
 
-    public UserDAO(int id, String account, String password, String email, String avatar, int phoneNumber, String address) {
+    public UserDAO() {
     }
 
 
