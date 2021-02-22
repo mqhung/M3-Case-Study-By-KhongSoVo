@@ -1,13 +1,13 @@
 package model;
 
 public class User {
+    private int id;
     private String account;
     private String password;
     private String email;
     private String avatar;
     private int phoneNumber;
     private String address;
-    private int id;
 
     public User(int id,String account, String password, String email, String avatar, int phoneNumber, String address) {
         this.id=id;
