@@ -13,12 +13,17 @@
 </head>
 <body ><center>
 <h2>
-    <input >
-    <a href="/post?action=create" >Add New Post</a>
+    <a href="/facebook?action=create" >Add New Post</a>
 </h2>
 <c:forEach items="${posts}" var="post">
     <div>
             ${post.getContent()}
+        <select>
+            <option><a href="/facebook?action=delete&id=${post.getId()}">delete</a></option>
+            <option><a href="/facebook?action=edit&id=${post.getId()}">edit</a></option>
+        </select>
+                <a href="/facebook?action=delete&id=${post.getId()}">delete</a>
+                <a href="/facebook?action=edit&id=${post.getId()}">edit</a>
     </div><br>
     <img style="max-width: 400px ; max-height: 600px"  src="${post.getImage()}"><br><br>
 <%--    <button name="button" type="button">Like</button><br><br>--%>
@@ -34,5 +39,6 @@
     <h6>-----------------------------------------------------------------------------------------------------------------------------</h6>
     </c:forEach>
 </center>
+
 </body>
 </html>

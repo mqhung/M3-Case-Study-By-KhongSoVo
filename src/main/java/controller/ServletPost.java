@@ -18,7 +18,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 @MultipartConfig
-@WebServlet(name = "Servlet_post", value = "/post")
+@WebServlet(name = "Servlet_post", value = "/facebook")
 public class ServletPost extends HttpServlet {
     private final IPost iPost = new PostService();
 
@@ -32,11 +32,34 @@ public class ServletPost extends HttpServlet {
                 createPost(request, response);
                 break;
             case "update":
-                showFormUpdate(request, response);
+                updatePost(request, response);
                 break;
             case "delete":
-                showFormDelete(request, response);
-                break;
+                deletePost(request, response);
+        }
+    }
+
+    private void deletePost(HttpServletRequest request, HttpServletResponse response) {
+int id =Integer.parseInt(request.getParameter("id"));
+iPost.deletePost(id);
+        try {
+            response.sendRedirect("/facebook?action=showAll&user_id=1");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updatePost(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String content = request.getParameter("content");
+        String image = request.getParameter("image");
+        int user_id = Integer.parseInt(request.getParameter("user_id"));
+        Post post = new Post(id, image, content, user_id);
+        iPost.updatePost(id, post);
+        try {
+            response.sendRedirect("/facebook");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -52,6 +75,26 @@ public class ServletPost extends HttpServlet {
             case "showAll":
                 showAll(request, response);
                 break;
+            case "edit":
+                showEditForm(request, response);
+                break;
+            case "delete":
+                showFormDelete(request, response);
+                break;
+        }
+    }
+
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Post post = iPost.findById(id);
+        request.setAttribute("post", post);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("updete.jsp");
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -70,6 +113,17 @@ public class ServletPost extends HttpServlet {
     }
 
     private void showFormDelete(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Post post = iPost.findById(id);
+        request.setAttribute("post", post);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("delete.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -82,7 +136,7 @@ public class ServletPost extends HttpServlet {
 
         part.write(realPart + "/" + fileName);
 
-        Post post = new Post(0,  "image_post/" + fileName, content, user_id);
+        Post post = new Post(0, "image_post/" + fileName, content, user_id);
         iPost.createPost(post);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/listpost.jsp?action=showAll&user_id=" + user_id);
         try {
@@ -99,8 +153,18 @@ public class ServletPost extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    private void showFormUpdate(HttpServletRequest request, HttpServletResponse response) {
-    }
-
+//    private void showFormUpdate(HttpServletRequest request, HttpServletResponse response) {
+//        int id = Integer.parseInt(request.getParameter("id"));
+//        String content = request.getParameter("content");
+//        String image = request.getParameter("image");
+//        String country = request.getParameter("country");
+//        Post post = new Post(id, image, content, 1);
+//        iPost.updatePost(id, post);
+//        try {
+//            response.sendRedirect("/post");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
 

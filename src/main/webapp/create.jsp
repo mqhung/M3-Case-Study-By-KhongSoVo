@@ -20,5 +20,7 @@
     <input type="reset" value="reset">
 
 </form>
+    <a href="/facebook?action=showAll&user_id=1" >Back To List</a>
+
 </center></body>
 </html>

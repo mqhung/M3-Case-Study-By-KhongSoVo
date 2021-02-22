@@ -49,13 +49,13 @@ public class PostService implements IPost {
     }
 
     @Override
-    public void createPost(Post post ) {
+    public void createPost(Post post) {
         Connection connection = getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO post (user_id, image, content) VALUES (?, ?, ?);");
-            preparedStatement.setInt(1,post.getUser_id());
-            preparedStatement.setString(2,post.getImage());
-            preparedStatement.setString(3,post.getContent());
+            preparedStatement.setInt(1, post.getUser_id());
+            preparedStatement.setString(2, post.getImage());
+            preparedStatement.setString(3, post.getContent());
             preparedStatement.executeUpdate();
 
         } catch (SQLException throwables) {
@@ -64,12 +64,55 @@ public class PostService implements IPost {
     }
 
     @Override
-    public boolean updatePost(int id) {
-        return false;
+    public Post updatePost(int id, Post post) {
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("update post set content = ? where id = ?;");
+            preparedStatement.setInt(2, id);
+            preparedStatement.setString(1, post.getContent());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return post;
     }
+
 
     @Override
     public void deletePost(int id) {
+        {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = null;
+            try {
+                preparedStatement = connection.prepareStatement("delete from post where id = ?;");
+                preparedStatement.setInt(1, id);
+                preparedStatement.executeUpdate();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
 
+    @Override
+    public Post findById(int id) {
+        Post post = null;
+        Connection connection = getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from post where id = ?;");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String image = resultSet.getString("image");
+                String content = resultSet.getString("content");
+
+                post = new Post(id, image, content, 0);
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return post;
     }
 }
