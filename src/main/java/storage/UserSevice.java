@@ -66,7 +66,7 @@ public class UserSevice implements IUserSevice{
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("insert into User(account, password, email, avatar, phoneNumber, address) value (?,?,?,?,?,?)");
 
-            preparedStatement.setString(1,user.getAccount());
+            preparedStatement.setString(1, user.getAccount());
             preparedStatement.setString(2,user.getPassword());
             preparedStatement.setString(3,user.getEmail());
             preparedStatement.setString(4,user.getAvatar());

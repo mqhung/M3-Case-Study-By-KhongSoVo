@@ -44,7 +44,6 @@ public class RegisterServlet extends HttpServlet {
             String address = request.getParameter("address");
 
             User user = new User(account,password,email,avata,phoneNumber,address);
-            System.out.println("ok ba ba"+user);
             userSevice.save(user);
 
             try {
