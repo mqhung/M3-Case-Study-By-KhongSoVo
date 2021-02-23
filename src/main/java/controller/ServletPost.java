@@ -2,7 +2,7 @@ package controller;
 
 import model.Post;
 import service.IPost;
-import service.PostService;
+import service.PostStatusService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,7 +19,7 @@ import java.util.UUID;
 @MultipartConfig
 @WebServlet(name = "Servlet_post", value = "/facebook")
 public class ServletPost extends HttpServlet {
-    private final IPost iPost = new PostService();
+    private final IPost iPost = new PostStatusService();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String action = request.getParameter("action");
@@ -142,7 +142,7 @@ public class ServletPost extends HttpServlet {
         String realPart = request.getServletContext().getRealPath("/image_post");
         String fileName = UUID.randomUUID() + part.getSubmittedFileName();
 
-        part.write(realPart + "/" + fileName);
+        part.write( realPart+"/" + fileName);
 
         Post post = new Post(0, "image_post/" + fileName, content, user_id);
         iPost.createPost(post);

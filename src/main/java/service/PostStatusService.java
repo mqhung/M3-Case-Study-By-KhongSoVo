@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostService implements IPost {
+public class PostStatusService implements IPost {
     private String jdbcURL = "jdbc:mysql://localhost:3306/case_study";
     private String jdbcUsername = "root";
     private String jdbcPassword = "123456";
