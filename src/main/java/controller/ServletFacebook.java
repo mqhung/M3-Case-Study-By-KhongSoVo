@@ -82,8 +82,25 @@ public class ServletFacebook extends HttpServlet {
         switch (action){
             case "comment":
                 comment(req,resp);
+                break;
+            case "messeage":
+                creatMesseage(req,resp);
+                break;
         }
 
+    }
+
+    private void creatMesseage(HttpServletRequest req, HttpServletResponse resp) {
+        int userId= Integer.parseInt(req.getParameter("userId"));
+        int friendId= Integer.parseInt(req.getParameter("friendId"));
+        String content=req.getParameter("messContent");
+        Messeage messeage=new Messeage(userId,friendId,content);
+        messeageService.createMess(messeage);
+        try {
+            resp.sendRedirect("/facebook?action=messeage&userId="+userId+"&friendId="+friendId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void comment(HttpServletRequest req, HttpServletResponse resp) {
