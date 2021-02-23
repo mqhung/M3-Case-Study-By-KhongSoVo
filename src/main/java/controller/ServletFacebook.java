@@ -1,9 +1,6 @@
 package controller;
 
-import model.Comment;
-import model.Likes;
-import model.Notice;
-import model.Post;
+import model.*;
 import service.postService.PostService;
 import service.commentService.CommentService;
 import service.likesService.LikesService;
@@ -37,8 +34,19 @@ public class ServletFacebook extends HttpServlet {
                 showAllPost(req,resp);
             case "likes":
                 likePost(req,resp);
+            case "messeage":
+                showFormMesseage(req,resp);
 
         }
+    }
+
+    private void showFormMesseage(HttpServletRequest req, HttpServletResponse resp) {
+        int userId= Integer.parseInt(req.getParameter("userId"));
+        int friendId= Integer.parseInt(req.getParameter("friendId"));
+        User user=userService.getById(userId);
+        User friend=userService.getById(friendId);
+
+
     }
 
     private void likePost(HttpServletRequest req, HttpServletResponse resp) {
@@ -47,10 +55,10 @@ public class ServletFacebook extends HttpServlet {
         Likes like =new Likes(postId,userId);
         int rowEffect =likesService.creatLike(like);
         if (rowEffect>0){
-            int notice_id=(int) (Math.random()*1000000);
+            User user=userService.getById(userId);
             int user_id=postService.findById(postId).getUser_id();
-            String content="user id " + userId + " liked " + "post id "+postId;
-            Notice notice =new Notice(notice_id,user_id,content);
+            String content="<img src=\""+user.getAvatar()+"\" width=\"50px\">" + user.getAccount() + " liked " + "post id "+postId;
+            Notice notice =new Notice(user_id,content);
             noticeService.creatNotice(notice);
         }
         try {
@@ -64,8 +72,10 @@ public class ServletFacebook extends HttpServlet {
     private void showAllPost(HttpServletRequest req, HttpServletResponse resp) {
         int user_id= Integer.parseInt(req.getParameter("id"));
         List<Post> list=postService.findAll();
+        List<User> listUser=userService.findAll();
         List<Notice> listNotice=noticeService.findNoticeByUser_id(user_id);
         int userId= Integer.parseInt(req.getParameter("id"));
+        req.setAttribute("listUser",listUser);
         req.setAttribute("userId",userId);
         req.setAttribute("list",list);
         req.setAttribute("listNotice",listNotice);
@@ -97,8 +107,9 @@ public class ServletFacebook extends HttpServlet {
         Comment comment=new Comment(userId,postId,content);
         int rowEffect=commentService.createComment(comment);
         if (rowEffect>0){
+            User user=userService.getById(userId);
             int user_id=postService.findById(postId).getUser_id();
-            String contentNotice="user id " + userId + " commented " + "post id "+postId;
+            String contentNotice="<img src=\""+user.getAvatar()+"\" width=\"50px\">" + user.getAccount() + " commented " + "post id "+postId;
             Notice notice =new Notice(user_id,contentNotice);
             noticeService.creatNotice(notice);
         }

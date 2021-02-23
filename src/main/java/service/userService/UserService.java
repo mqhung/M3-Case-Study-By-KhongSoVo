@@ -37,7 +37,7 @@ public class UserService {
         User user=null;
         Connection connection=GetConnection.getConnetion();
         try {
-            PreparedStatement preparedStatement= connection.prepareStatement("select * from where id=?");
+            PreparedStatement preparedStatement= connection.prepareStatement("select * from user where id=?");
             preparedStatement.setInt(1,id);
             ResultSet resultSet=preparedStatement.executeQuery();
             while (resultSet.next()){

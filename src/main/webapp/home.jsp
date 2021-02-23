@@ -38,5 +38,15 @@
         </tr>
     </c:forEach>
 </table>
+<table>
+    <c:forEach items="${listUser}" var="user">
+        <tr>
+            <td><img src="${user.getAvatar()}" width="100px"></td>
+            <td>${user.getAccount()}</td>
+            <td><a href="/facebook?action=messeage&userId=${userId}&friendId=${user.getId()}">send messeage</a></td>
+        </tr>
+
+    </c:forEach>
+</table>
 </body>
 </html>
