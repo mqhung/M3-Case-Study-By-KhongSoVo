@@ -7,7 +7,9 @@ public class User {
     private String avatar;
     private int phoneNumber;
     private String address;
+    private String birthday;
     private int id;
+
 
     public User(int id,String account, String password, String email, String avatar, int phoneNumber, String address) {
         this.id=id;

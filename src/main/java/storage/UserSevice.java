@@ -2,9 +2,8 @@ package storage;
 
 import model.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserSevice implements IUserSevice{
@@ -27,7 +26,28 @@ public class UserSevice implements IUserSevice{
 
     @Override
     public List<User> findAll() {
-        return null;
+        List<User> userList = new ArrayList<>();
+        Connection connection = getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from User;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                int id = resultSet.getInt("id");
+                String account = resultSet.getString("account");
+                String password = resultSet.getString("password");
+                String email = resultSet.getString("email");
+                String avata = resultSet.getString("avata");
+                int phoneNumber = resultSet.getInt("phoneNumber");
+                String address = resultSet.getString("address");
+
+                User user = new User(id,account,password,email,avata,phoneNumber,address);
+                userList.add(user);
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return userList;
     }
 
     @Override
@@ -41,8 +61,20 @@ public class UserSevice implements IUserSevice{
     }
 
     @Override
-    public boolean save(User user) {
-
-        return false;
+    public User save(User user) {
+        Connection connection = getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into User value (?,?,?,?,?,?,?);");
+            preparedStatement.setInt(1,user.getId());
+            preparedStatement.setString(2,user.getAccount());
+            preparedStatement.setString(3,user.getPassword());
+            preparedStatement.setString(4,user.getEmail());
+            preparedStatement.setString(5,user.getAvatar());
+            preparedStatement.setInt(6,user.getPhoneNumber());
+            preparedStatement.setString(7,user.getAddress());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return user;
     }
 }

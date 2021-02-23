@@ -1,5 +1,7 @@
 package storage;
 
+import model.User;
+
 import java.util.List;
 
 public interface IGenaricSevice<T> {
@@ -7,5 +9,5 @@ public interface IGenaricSevice<T> {
     T findById(int id);
 
     boolean remove(int id);
-    boolean save(T t);
+    User save(T t);
 }

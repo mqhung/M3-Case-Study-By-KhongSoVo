@@ -15,20 +15,19 @@ import java.util.List;
 
 @WebServlet(name = "RegisterServlet", urlPatterns = "/register")
 public class RegisterServlet extends HttpServlet {
+    UserSevice userSevice = new UserSevice();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String avata = request.getParameter("avata");
-        String name = request.getParameter("name");
-        String account = request.getParameter("account");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
-        String birthday = request.getParameter("birthday");
-        String address = request.getParameter("address");
-
-        User user = new User(account,password,email,avata,phoneNumber,address);
-
+        String action = request.getParameter("action");
+        if(action == null){
+            action = "";
+        }
+        switch (action) {
+            case "create":
+                createAccount(request, response);
+                break;
+        }
         HttpSession session = request.getSession(false);
         session.getAttribute("user");
 
@@ -36,6 +35,29 @@ public class RegisterServlet extends HttpServlet {
 
 
     }
+        private void createAccount(HttpServletRequest request, HttpServletResponse response) {
+            String avata = request.getParameter("avata");
+            String name = request.getParameter("name");
+            String account = request.getParameter("account");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
+            String birthday = request.getParameter("birthday");
+            String address = request.getParameter("address");
+
+            User user = new User(account,password,email,avata,phoneNumber,address);
+            userSevice.save(user);
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("register.jsp");
+            try {
+                requestDispatcher.forward(request,response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -43,11 +65,24 @@ public class RegisterServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            default:
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("register.jsp");
-                requestDispatcher.forward(request, response);
+            case "create":
+                showCreateForm(request,response);
+                break;
         }
 
+        }
+
+
+
+    private void showCreateForm(HttpServletRequest request, HttpServletResponse response) {
+       RequestDispatcher requestDispatcher = request.getRequestDispatcher("register.jsp");
+        try {
+            requestDispatcher.forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
