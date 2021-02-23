@@ -3,10 +3,7 @@ package service.messeageService;
 import model.Messeage;
 import storage.GetConnection;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,5 +28,17 @@ public class MesseageService {
             throwables.printStackTrace();
         }
         return list;
+    }
+    public void createMess(Messeage messeage){
+        Connection connection=GetConnection.getConnetion();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement("insert into messeage(user_id, friend_id,content) values (?,?,?)");
+            preparedStatement.setInt(1,messeage.getUser_id());
+            preparedStatement.setInt(2,messeage.getFriend_id());
+            preparedStatement.setString(3,messeage.getContent());
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }
