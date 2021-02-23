@@ -1,24 +1,26 @@
+service/IPostService.java
+ service.IPostService
+model/RelativeStatus.java
+ model.RelativeStatus
+storage/GetConnection.java
+ storage.GetConnection
+service/IService.java
+ service.IService
 model/Likes.java
  model.Likes
 model/RelationShip.java
  model.RelationShip
 model/User.java
  model.User
-service/IService.java
- service.IService
 model/Comment.java
  model.Comment
 model/Post.java
  model.Post
-service/IPostService.java
- service.IPostService
-storage/GetConnection.java
- storage.GetConnection
 controller/ServletFacebook.java
  controller.ServletFacebook
 service/PostService.java
  service.PostService
-model/RelativeStatus.java
- model.RelativeStatus
+service/likesService/LikesService.java
+ service.likesService.LikesService
 model/Notice.java
  model.Notice

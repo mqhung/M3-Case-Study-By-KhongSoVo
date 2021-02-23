@@ -25,7 +25,7 @@
         <tr>
         <td><img src="${post.getImage()}"></td>
         <td>${post.getContent()}</td>
-        <td>${post.getLike()}</td>
+        <td>${post.getLikeAmount()}</td>
         <td><a href="facebook?action=likes&userId=${userId}&postId=${post.getId()}">like</a></td>
         <c:forEach items="${post.getListComment()}" var="comment">
 

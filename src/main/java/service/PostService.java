@@ -31,22 +31,22 @@ public class PostService implements IPostService{
         }
         return list;
     }
-    public static int getLike(int post_id){
-        int likeAmount=0;
-        Connection connection=GetConnection.getConnetion();
-        try {
-            CallableStatement callableStatement=connection.prepareCall("{call count_post_like(?,?)}");
-            callableStatement.setInt(1,post_id);
-            callableStatement.registerOutParameter(2, Types.INTEGER);
-            callableStatement.execute();
-            likeAmount=callableStatement.getInt(2);
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return likeAmount;
-
-    }
+//    public static int getLike(int post_id){
+//        int likeAmount=0;
+//        Connection connection=GetConnection.getConnetion();
+//        try {
+//            CallableStatement callableStatement=connection.prepareCall("{call count_post_like(?,?)}");
+//            callableStatement.setInt(1,post_id);
+//            callableStatement.registerOutParameter(2, Types.INTEGER);
+//            callableStatement.execute();
+//            likeAmount=callableStatement.getInt(2);
+//
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        return likeAmount;
+//
+//    }
     public static List<Comment> getCommentByPost_id(int post_id){
         List<Comment> list=new ArrayList<>();
         Connection connection=GetConnection.getConnetion();
@@ -100,20 +100,20 @@ public class PostService implements IPostService{
             throwables.printStackTrace();
         }
     }
-    public int creatLike(Likes like){
-        int rowEffect=0;
-        Connection connection =GetConnection.getConnetion();
-        try {
-            PreparedStatement preparedStatement=connection.prepareStatement("insert into likes values (?,?,?)");
-            preparedStatement.setInt(1,like.getId());
-            preparedStatement.setInt(2,like.getPost_id());
-            preparedStatement.setInt(3,like.getUser_id());
-            rowEffect=preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return rowEffect;
-    }
+//    public int creatLike(Likes like){
+//        int rowEffect=0;
+//        Connection connection =GetConnection.getConnetion();
+//        try {
+//            PreparedStatement preparedStatement=connection.prepareStatement("insert into likes values (?,?,?)");
+//            preparedStatement.setInt(1,like.getId());
+//            preparedStatement.setInt(2,like.getPost_id());
+//            preparedStatement.setInt(3,like.getUser_id());
+//            rowEffect=preparedStatement.executeUpdate();
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        return rowEffect;
+//    }
     public int createComment(Comment comment){
         int rowEffect=0;
         Connection connection =GetConnection.getConnetion();
