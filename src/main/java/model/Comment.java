@@ -1,5 +1,7 @@
 package model;
 
+import service.userService.UserService;
+
 public class Comment {
     private int id;
     private int user_id;
@@ -17,6 +19,9 @@ public class Comment {
         this.user_id = user_id;
         this.post_id = post_id;
         this.content = content;
+    }
+    public String getAvatar(){
+        return new UserService().getById(user_id).getAvatar();
     }
 
     public int getId() {
