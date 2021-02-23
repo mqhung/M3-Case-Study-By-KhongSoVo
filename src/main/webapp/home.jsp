@@ -28,7 +28,7 @@
         <td>${post.getLikeAmount()}</td>
         <td><a href="facebook?action=likes&userId=${userId}&postId=${post.getId()}">like</a></td>
         <c:forEach items="${post.getListComment()}" var="comment">
-
+            <td><img src="${comment.getAvatar()}" width="30px"></td>
             <td>${comment.getContent()}</td>
         </c:forEach>
          <td><form method="post" action="/facebook?action=comment&userId=${userId}&postId=${post.getId()}">
