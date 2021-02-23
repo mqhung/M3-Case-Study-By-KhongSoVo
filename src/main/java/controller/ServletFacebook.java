@@ -14,8 +14,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 
 @WebServlet(name = "ServletFacebook", urlPatterns = "/facebook")
@@ -41,7 +43,23 @@ public class ServletFacebook extends HttpServlet {
             case "messeage":
                 showFormMesseage(req,resp);
                 break;
+            case "create":
+                showFormCreate(req, resp);
+                break;
 
+        }
+    }
+
+    private void showFormCreate(HttpServletRequest req, HttpServletResponse resp) {
+        int userId= Integer.parseInt(req.getParameter("userId"));
+        req.setAttribute("userId",userId);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("create.jsp");
+        try {
+            requestDispatcher.forward(req, resp);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -111,8 +129,26 @@ public class ServletFacebook extends HttpServlet {
             case "messeage":
                 creatMesseage(req,resp);
                 break;
+            case "create":
+                createPost(req, resp);
+                break;
         }
 
+    }
+
+    private void createPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
+        int user_id = Integer.parseInt(req.getParameter("userId"));
+        String content = req.getParameter("content");
+        Part part = req.getPart("image");
+        String realPart = req.getServletContext().getRealPath("/image_post");
+        String fileName = UUID.randomUUID() + part.getSubmittedFileName();
+
+        part.write( realPart+"/" + fileName);
+
+        Post post = new Post( "image_post/" + fileName, content, user_id);
+        postService.create(post);
+        String redirectURL = "/facebook?action=home&user_id=" + user_id;
+        resp.sendRedirect(redirectURL);
     }
 
     private void creatMesseage(HttpServletRequest req, HttpServletResponse resp) {

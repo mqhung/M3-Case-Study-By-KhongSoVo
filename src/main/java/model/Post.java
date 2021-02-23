@@ -30,6 +30,11 @@ public class Post {
         return LikesService.getLikeAmount(id);
     }
 
+    public Post(int id, String content) {
+        this.id=id;
+        this.content = content;
+    }
+
     public int getId() {
         return id;
     }
