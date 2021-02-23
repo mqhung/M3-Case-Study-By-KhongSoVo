@@ -1,5 +1,7 @@
 package storage;
 
+import model.Notice;
+import model.RelationShip;
 import model.User;
 
 import java.sql.*;
@@ -7,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO implements IUser {
-    public static final String SELECT_ALL_USER = "select * form user;";
-    private static final String FIND_FRIEND_BY_ID = "select * from users where id = ?;";
-    private static String url = "jdbc:mysql://localhost:3306/case_study";
-    private static String user = "root";
-    private static String password = "hunghip12";
+    private static final String url = "jdbc:mysql://localhost:3306/case_study";
+    private static final String user = "root";
+    private static final String password = "hunghip12";
+    public static final String SELECT_ALL_USER = "select * from user;";
+    private static final String FIND_FRIEND_BY_ID = "select * from user where id = ?;";
+    public static final String INSERT_RELATIONSHIP = "insert into relationship values (?,?,?,?);";
 
     public UserDAO() {
     }
@@ -76,5 +79,33 @@ public class UserDAO implements IUser {
             exception.printStackTrace();
         }
         return user;
+    }
+    public int createRelative(RelationShip relationShip){
+        int rowEffect=0;
+        Connection connection =getConnetion();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement(INSERT_RELATIONSHIP);
+            preparedStatement.setInt(1,relationShip.getId());
+            preparedStatement.setInt(2,relationShip.getUser_id());
+            preparedStatement.setInt(3,relationShip.getFriend_id());
+            preparedStatement.setInt(4,relationShip.getRelative_status_id());
+            rowEffect=preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return rowEffect;
+    }
+
+    public void creatNotice(Notice notice){
+        Connection connection=getConnetion();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement("insert into notice values (?,?,?)");
+            preparedStatement.setInt(1, notice.getId());
+            preparedStatement.setInt(2, notice.getUser_id());
+            preparedStatement.setString(3, notice.getContent());
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }

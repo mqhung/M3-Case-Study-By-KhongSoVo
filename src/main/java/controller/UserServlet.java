@@ -23,13 +23,21 @@ private  static IUser userDAO = new UserDAO();
             case "find":
                 findUserById(request, response);
                 break;
+            case "add":
+                addFriendById(request,response);
+                break;
         }
     }
 
+    private void addFriendById(HttpServletRequest request, HttpServletResponse response) {
+
+    }
+
     private void findUserById(HttpServletRequest request, HttpServletResponse response) {
-        int id = request.getIntHeader("id");
+        int id = Integer.parseInt(request.getParameter("id"));
         RequestDispatcher dispatcher;
         User user = userDAO.findFriendById(id);
+        request.setAttribute("user", user);
         if(user == null){
             dispatcher = request.getRequestDispatcher("error-404.jsp");
         } else {

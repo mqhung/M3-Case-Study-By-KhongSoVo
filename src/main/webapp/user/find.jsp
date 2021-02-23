@@ -12,19 +12,20 @@
 </head>
 <body>
 <form method="post">
-    <input type="text" name="id" value="${users.getId()}">
+    <input type="text" name="id" value="${user.getId()}">
     <input type="submit" value="Find">
 </form>
 <h3>Result</h3>
 <table>
     <tr>
-        <td>${users.getId()}</td>
-        <td>${users.getAccount()}</td>
-        <td>${users.getPassword()}</td>
-        <td>${users.getEmail()}</td>
-        <td>${users.getAvatar()}</td>
-        <td>${users.getPhoneNumber()}</td>
-        <td>${users.getAddress()}</td>
+        <td>${user.getId()}</td>
+        <td>${user.getAccount()}</td>
+        <td>${user.getPassword()}</td>
+        <td>${user.getEmail()}</td>
+        <td>${user.getAvatar()}</td>
+        <td>${user.getPhoneNumber()}</td>
+        <td>${user.getAddress()}</td>
+        <td><a href="facebook?action=add&userId=${userID}&friendID=${friendID}">Add Friend</a></td>
     </tr>
 </table>
 </body>

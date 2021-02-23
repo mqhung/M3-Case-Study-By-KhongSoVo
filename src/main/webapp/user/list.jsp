@@ -23,15 +23,15 @@
             <th>Phone Number</th>
             <th>Address</th>
         </tr>
-        <c:forEach var="user" items="${listUser}">
+        <c:forEach items="${listUser}" var="user">
             <tr>
-                <td><c:out value="${user.id}"/></td>
-                <td><c:out value="${user.account}"/></td>
-                <td><c:out value="${user.password}"/></td>
-                <td><c:out value="${user.email}"/></td>
-                <td><c:out value="${user.avatar}"/></td>
-                <td><c:out value="${user.phoneNumber}"/></td>
-                <td><c:out value="${user.address}"/></td>
+                <td><c:out value="${user.getId()}"/></td>
+                <td><c:out value="${user.getAccount()}"/></td>
+                <td><c:out value="${user.getPassword()}"/></td>
+                <td><c:out value="${user.getEmail()}"/></td>
+                <td><c:out value="${user.getAvatar()}"/></td>
+                <td><c:out value="${user.getPhoneNumber()}"/></td>
+                <td><c:out value="${user.getAddress()}"/></td>
             </tr>
         </c:forEach>
     </table>

@@ -2,17 +2,19 @@ model/Likes.java
  model.Likes
 model/RelationShip.java
  model.RelationShip
-model/RelativeStatus.java
- model.RelativeStatus
-model/Post.java
- model.Post
 storage/IUser.java
  storage.IUser
 model/User.java
  model.User
 storage/IGeneralUser.java
  storage.IGeneralUser
-controller/UserServlet.java
- controller.UserServlet
+model/Post.java
+ model.Post
 storage/UserDAO.java
  storage.UserDAO
+model/RelativeStatus.java
+ model.RelativeStatus
+controller/UserServlet.java
+ controller.UserServlet
+model/Notice.java
+ model.Notice
