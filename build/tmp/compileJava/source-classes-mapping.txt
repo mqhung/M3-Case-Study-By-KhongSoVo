@@ -1,7 +1,7 @@
-model/Likes.java
- model.Likes
 model/RelationShip.java
  model.RelationShip
+model/Likes.java
+ model.Likes
 storage/IUser.java
  storage.IUser
 model/User.java
@@ -10,11 +10,11 @@ storage/IGeneralUser.java
  storage.IGeneralUser
 model/Post.java
  model.Post
-storage/UserDAO.java
- storage.UserDAO
-model/RelativeStatus.java
- model.RelativeStatus
-controller/UserServlet.java
- controller.UserServlet
 model/Notice.java
  model.Notice
+model/RelativeStatus.java
+ model.RelativeStatus
+storage/UserDAO.java
+ storage.UserDAO
+controller/UserServlet.java
+ controller.UserServlet

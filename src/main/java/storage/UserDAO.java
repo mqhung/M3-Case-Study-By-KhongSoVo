@@ -15,6 +15,7 @@ public class UserDAO implements IUser {
     public static final String SELECT_ALL_USER = "select * from user;";
     private static final String FIND_FRIEND_BY_ID = "select * from user where id = ?;";
     public static final String INSERT_RELATIONSHIP = "insert into relationship values (?,?,?,?);";
+    public static final String SELECT_ALL_NOTICE_BY_ID = "select * from notice where user_id=?;";
 
     public UserDAO() {
     }
@@ -80,26 +81,27 @@ public class UserDAO implements IUser {
         }
         return user;
     }
-    public int createRelative(RelationShip relationShip){
-        int rowEffect=0;
-        Connection connection =getConnetion();
+
+    public int createRelative(RelationShip relationShip) {
+        int rowEffect = 0;
+        Connection connection = getConnetion();
         try {
-            PreparedStatement preparedStatement=connection.prepareStatement(INSERT_RELATIONSHIP);
-            preparedStatement.setInt(1,relationShip.getId());
-            preparedStatement.setInt(2,relationShip.getUser_id());
-            preparedStatement.setInt(3,relationShip.getFriend_id());
-            preparedStatement.setInt(4,relationShip.getRelative_status_id());
-            rowEffect=preparedStatement.executeUpdate();
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_RELATIONSHIP);
+            preparedStatement.setInt(1, relationShip.getId());
+            preparedStatement.setInt(2, relationShip.getUser_id());
+            preparedStatement.setInt(3, relationShip.getFriend_id());
+            preparedStatement.setInt(4, relationShip.getRelative_status_id());
+            rowEffect = preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return rowEffect;
     }
 
-    public void creatNotice(Notice notice){
-        Connection connection=getConnetion();
+    public void createNotice(Notice notice) {
+        Connection connection = getConnetion();
         try {
-            PreparedStatement preparedStatement=connection.prepareStatement("insert into notice values (?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into notice values (?,?,?)");
             preparedStatement.setInt(1, notice.getId());
             preparedStatement.setInt(2, notice.getUser_id());
             preparedStatement.setString(3, notice.getContent());
@@ -107,5 +109,25 @@ public class UserDAO implements IUser {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public List<Notice> findNoticeByUser_id(int user_id) {
+        List<Notice> list = new ArrayList<>();
+        Connection connection = getConnetion();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(SELECT_ALL_NOTICE_BY_ID);
+            preparedStatement.setInt(1, user_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String content = resultSet.getString("content");
+                Notice notice = new Notice(id, user_id, content);
+                list.add(notice);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return list;
     }
 }

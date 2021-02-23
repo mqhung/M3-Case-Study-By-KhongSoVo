@@ -12,7 +12,7 @@
 </head>
 <body>
 <form method="post">
-    <input type="text" name="id" value="${user.getId()}">
+    <input type="text" name="friendId">
     <input type="submit" value="Find">
 </form>
 <h3>Result</h3>
@@ -25,8 +25,15 @@
         <td>${user.getAvatar()}</td>
         <td>${user.getPhoneNumber()}</td>
         <td>${user.getAddress()}</td>
-        <td><a href="facebook?action=add&userId=${userID}&friendID=${friendID}">Add Friend</a></td>
+        <td><a href="facebook?action=add&userId=${userId}&friendId=${friendId}">Add Friend</a></td>
     </tr>
+</table>
+<table>
+    <c:forEach items="${listNotice}" var="notice">
+        <tr>
+            <td>${notice.getContent()}</td>
+        </tr>
+    </c:forEach>
 </table>
 </body>
 </html>

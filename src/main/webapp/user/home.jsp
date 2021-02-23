@@ -8,7 +8,7 @@
 <body>
 <center>
     <h4>
-        <a href="/facebook?action=find">Find Friend By Id</a> <br>
+        <a href="/facebook?action=find&userId=${userId}">Find Friend By Id</a> <br>
     </h4>
 </center>
 <div align="center">
