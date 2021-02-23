@@ -9,7 +9,16 @@ public class User {
     private String address;
     private int id;
 
-    public User(int id,String account, String password, String email, String avatar, int phoneNumber, String address) {
+    public User(String account, String password, String email, String avatar, int phoneNumber, String address) {
+        this.account = account;
+        this.password = password;
+        this.email = email;
+        this.avatar = avatar;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
+
+    public User(int id, String account, String password, String email, String avatar, int phoneNumber, String address) {
         this.id=id;
         this.account = account;
         this.password = password;
