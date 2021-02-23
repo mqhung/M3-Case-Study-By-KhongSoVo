@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import service.messeageService.MesseageService;
 import service.postService.PostService;
 import service.commentService.CommentService;
 import service.likesService.LikesService;
@@ -24,6 +25,7 @@ public class ServletFacebook extends HttpServlet {
     private CommentService commentService=new CommentService();
     private NoticeService noticeService=new NoticeService();
     private UserService userService=new UserService();
+    private MesseageService messeageService=new MesseageService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,10 +34,13 @@ public class ServletFacebook extends HttpServlet {
         switch (action){
             case "home":
                 showAllPost(req,resp);
+                break;
             case "likes":
                 likePost(req,resp);
+                break;
             case "messeage":
                 showFormMesseage(req,resp);
+                break;
 
         }
     }
@@ -43,10 +48,16 @@ public class ServletFacebook extends HttpServlet {
     private void showFormMesseage(HttpServletRequest req, HttpServletResponse resp) {
         int userId= Integer.parseInt(req.getParameter("userId"));
         int friendId= Integer.parseInt(req.getParameter("friendId"));
-        User user=userService.getById(userId);
-        User friend=userService.getById(friendId);
-
-
+        List<Messeage> listMess=messeageService.findByTwoId(userId,friendId);
+        req.setAttribute("listMess",listMess);
+        RequestDispatcher dispatcher=req.getRequestDispatcher("messForm.jsp");
+        try {
+            dispatcher.forward(req,resp);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void likePost(HttpServletRequest req, HttpServletResponse resp) {
@@ -57,8 +68,8 @@ public class ServletFacebook extends HttpServlet {
         if (rowEffect>0){
             User user=userService.getById(userId);
             int user_id=postService.findById(postId).getUser_id();
-            String content="<img src=\""+user.getAvatar()+"\" width=\"50px\">" + user.getAccount() + " liked " + "post id "+postId;
-            Notice notice =new Notice(user_id,content);
+            String contentNotice="<img src=\""+user.getAvatar()+"\" width=\"50px\">" + user.getAccount() + " liked " + "post id "+postId;
+            Notice notice =new Notice(user_id,contentNotice);
             noticeService.creatNotice(notice);
         }
         try {
@@ -96,6 +107,7 @@ public class ServletFacebook extends HttpServlet {
         switch (action){
             case "comment":
                 comment(req,resp);
+                break;
         }
 
     }

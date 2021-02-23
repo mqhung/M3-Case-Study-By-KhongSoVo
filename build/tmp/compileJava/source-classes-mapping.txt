@@ -28,7 +28,9 @@ service/postService/IService.java
  service.postService.IService
 service/userService/UserService.java
  service.userService.UserService
-controller/ServletFacebook.java
- controller.ServletFacebook
 model/Messeage.java
  model.Messeage
+service/messeageService/MesseageService.java
+ service.messeageService.MesseageService
+controller/ServletFacebook.java
+ controller.ServletFacebook
