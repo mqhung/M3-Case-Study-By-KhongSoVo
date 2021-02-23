@@ -1,6 +1,7 @@
 package model;
 
 import service.PostService;
+import service.commentService.CommentService;
 import service.likesService.LikesService;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class Post {
         this.user_id = user_id;
     }
     public List<Comment> getListComment(){
-        return PostService.getCommentByPost_id(id);
+        return CommentService.getCommentByPost_id(id);
     }
     public int getLikeAmount(){
         return LikesService.getLikeAmount(id);

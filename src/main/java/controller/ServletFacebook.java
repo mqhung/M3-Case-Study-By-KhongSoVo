@@ -6,6 +6,7 @@ import model.Notice;
 import model.Post;
 import service.IPostService;
 import service.PostService;
+import service.commentService.CommentService;
 import service.likesService.LikesService;
 
 import javax.servlet.RequestDispatcher;
@@ -22,6 +23,7 @@ import java.util.List;
 public class ServletFacebook extends HttpServlet {
     private PostService postService=new PostService();
     private LikesService likesService=new LikesService();
+    private CommentService commentService=new CommentService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action=req.getParameter("action");
@@ -90,15 +92,13 @@ public class ServletFacebook extends HttpServlet {
     private void comment(HttpServletRequest req, HttpServletResponse resp) {
         int userId= Integer.parseInt(req.getParameter("userId"));
         int postId= Integer.parseInt(req.getParameter("postId"));
-        int id=(int) (Math.random()*1000000);
         String content=req.getParameter("content");
-        Comment comment=new Comment(id,userId,postId,content);
-        int rowEffect=postService.createComment(comment);
+        Comment comment=new Comment(userId,postId,content);
+        int rowEffect=commentService.createComment(comment);
         if (rowEffect>0){
-            int notice_id=(int) (Math.random()*1000000);
             int user_id=postService.findById(postId).getUser_id();
             String contentNotice="user id " + userId + " commented " + "post id "+postId;
-            Notice notice =new Notice(notice_id,user_id,contentNotice);
+            Notice notice =new Notice(user_id,contentNotice);
             postService.creatNotice(notice);
         }
 
