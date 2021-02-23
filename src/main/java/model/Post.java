@@ -10,6 +10,12 @@ public class Post {
     private String content;
     private int user_id;
 
+    public Post(String image, String content, int user_id) {
+        this.image = image;
+        this.content = content;
+        this.user_id = user_id;
+    }
+
     public Post(int id, String image, String content, int user_id) {
         this.id=id;
         this.image = image;
