@@ -5,6 +5,11 @@ public class Notice {
     private int user_id;
     private String content;
 
+    public Notice(int user_id, String content) {
+        this.user_id = user_id;
+        this.content = content;
+    }
+
     public Notice(int id, int user_id, String content) {
         this.id = id;
         this.user_id = user_id;
