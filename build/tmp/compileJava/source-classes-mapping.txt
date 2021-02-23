@@ -6,8 +6,8 @@ service/postService/IService.java
  service.postService.IService
 model/Messeage.java
  model.Messeage
-controller/ServletFacebook.java
- controller.ServletFacebook
+model/Notice.java
+ model.Notice
 model/RelativeStatus.java
  model.RelativeStatus
 model/Likes.java
@@ -32,5 +32,5 @@ service/noticeService/NoticeService.java
  service.noticeService.NoticeService
 service/likesService/LikesService.java
  service.likesService.LikesService
-model/Notice.java
- model.Notice
+controller/ServletFacebook.java
+ controller.ServletFacebook
