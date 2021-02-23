@@ -8,6 +8,7 @@ import service.IPostService;
 import service.PostService;
 import service.commentService.CommentService;
 import service.likesService.LikesService;
+import service.noticeService.NoticeService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,6 +25,8 @@ public class ServletFacebook extends HttpServlet {
     private PostService postService=new PostService();
     private LikesService likesService=new LikesService();
     private CommentService commentService=new CommentService();
+    private NoticeService noticeService=new NoticeService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action=req.getParameter("action");
@@ -34,9 +37,7 @@ public class ServletFacebook extends HttpServlet {
             case "likes":
                 likePost(req,resp);
 
-
         }
-
     }
 
     private void likePost(HttpServletRequest req, HttpServletResponse resp) {
@@ -49,7 +50,7 @@ public class ServletFacebook extends HttpServlet {
             int user_id=postService.findById(postId).getUser_id();
             String content="user id " + userId + " liked " + "post id "+postId;
             Notice notice =new Notice(notice_id,user_id,content);
-            postService.creatNotice(notice);
+            noticeService.creatNotice(notice);
         }
         try {
             resp.sendRedirect("/facebook?action=home&id="+userId);
@@ -62,9 +63,9 @@ public class ServletFacebook extends HttpServlet {
     private void showAllPost(HttpServletRequest req, HttpServletResponse resp) {
         int user_id= Integer.parseInt(req.getParameter("id"));
         List<Post> list=postService.findAll();
-        List<Notice> listNotice=postService.findNoticeByUser_id(user_id);
+        List<Notice> listNotice=noticeService.findNoticeByUser_id(user_id);
         int userId= Integer.parseInt(req.getParameter("id"));
-        req.setAttribute("postService",postService);
+//        req.setAttribute("postService",postService);
         req.setAttribute("userId",userId);
         req.setAttribute("list",list);
         req.setAttribute("listNotice",listNotice);
@@ -99,7 +100,7 @@ public class ServletFacebook extends HttpServlet {
             int user_id=postService.findById(postId).getUser_id();
             String contentNotice="user id " + userId + " commented " + "post id "+postId;
             Notice notice =new Notice(user_id,contentNotice);
-            postService.creatNotice(notice);
+            noticeService.creatNotice(notice);
         }
 
         try {
