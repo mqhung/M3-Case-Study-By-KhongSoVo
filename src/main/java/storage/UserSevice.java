@@ -64,14 +64,15 @@ public class UserSevice implements IUserSevice{
     public User save(User user) {
         Connection connection = getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("insert into User value (?,?,?,?,?,?,?);");
-            preparedStatement.setInt(1,user.getId());
-            preparedStatement.setString(2,user.getAccount());
-            preparedStatement.setString(3,user.getPassword());
-            preparedStatement.setString(4,user.getEmail());
-            preparedStatement.setString(5,user.getAvatar());
-            preparedStatement.setInt(6,user.getPhoneNumber());
-            preparedStatement.setString(7,user.getAddress());
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into User(account, password, email, avatar, phoneNumber, address) value (?,?,?,?,?,?)");
+
+            preparedStatement.setString(1,user.getAccount());
+            preparedStatement.setString(2,user.getPassword());
+            preparedStatement.setString(3,user.getEmail());
+            preparedStatement.setString(4,user.getAvatar());
+            preparedStatement.setInt(5,user.getPhoneNumber());
+            preparedStatement.setString(6,user.getAddress());
+            preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -29,7 +29,7 @@
       <h2 class="text-center">Registation Form</h2>
     </div>
     <div class="panel-body">
-      <form method="post">
+      <form action="/register" method="post">
       <div class="form-group">
         <label for="usr">Name:</label>
         <input required="true" type="text" class="form-control" id="usr" name="name"/>
@@ -49,6 +49,10 @@
         <div class="form-group">
           <label for="phoneNumber">Phone Number</label>
           <input required="true" type="text" class="form-control" id="phoneNumber" name="phoneNumber"/>
+        </div>
+        <div class="form-group">
+          <label for="avata">Avata</label>
+          <input required="true" type="text" class="form-control" id="avata" name="avata"/>
         </div>
       <div class="form-group">
         <label for="pwd">Password:</label>

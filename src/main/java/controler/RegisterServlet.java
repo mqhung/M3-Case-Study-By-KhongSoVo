@@ -24,38 +24,35 @@ public class RegisterServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "create":
+            default:
                 createAccount(request, response);
                 break;
         }
         HttpSession session = request.getSession(false);
         session.getAttribute("user");
 
-        response.sendRedirect("/login");
 
 
     }
         private void createAccount(HttpServletRequest request, HttpServletResponse response) {
+//            int id = Integer.parseInt(request.getParameter("id"));
             String avata = request.getParameter("avata");
-            String name = request.getParameter("name");
             String account = request.getParameter("account");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
-            String birthday = request.getParameter("birthday");
             String address = request.getParameter("address");
 
             User user = new User(account,password,email,avata,phoneNumber,address);
+            System.out.println("ok ba ba"+user);
             userSevice.save(user);
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("register.jsp");
             try {
-                requestDispatcher.forward(request,response);
-            } catch (ServletException e) {
-                e.printStackTrace();
+                response.sendRedirect("/login");
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
 
         }
 
@@ -65,7 +62,7 @@ public class RegisterServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "create":
+            default:
                 showCreateForm(request,response);
                 break;
         }
