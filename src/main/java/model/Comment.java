@@ -6,6 +6,12 @@ public class Comment {
     private int post_id;
     private String content;
 
+    public Comment(int user_id, int post_id, String content) {
+        this.user_id = user_id;
+        this.post_id = post_id;
+        this.content = content;
+    }
+
     public Comment(int id, int user_id, int post_id, String content) {
         this.id = id;
         this.user_id = user_id;
