@@ -1,5 +1,9 @@
 package model;
 
+import service.PostService;
+
+import java.util.List;
+
 public class Post {
     private int id;
     private String image;
@@ -11,6 +15,12 @@ public class Post {
         this.image = image;
         this.content = content;
         this.user_id = user_id;
+    }
+    public List<Comment> getListComment(){
+        return PostService.getCommentByPost_id(id);
+    }
+    public int getLike(){
+        return PostService.getLike(id);
     }
 
     public int getId() {
