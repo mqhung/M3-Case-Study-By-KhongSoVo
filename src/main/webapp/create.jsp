@@ -17,8 +17,8 @@
     <input type="file" name="image" placeholder="image"/><br><br>
 
     <input type="submit" value="Đăng">
-    <input type="reset" value="reset">
-    <a href="/facebook?action=home&user_id=1" >Hủy</a>
+    <input type="reset" value="Reset">
+    <a style="text-decoration: none " href="/facebook?action=home&user_id=1" >Hủy</a>
 
 </form>
 <%--    <a href="/facebook?action=home&user_id=1" >Back To List</a>--%>

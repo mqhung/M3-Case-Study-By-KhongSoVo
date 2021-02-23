@@ -16,8 +16,10 @@
     <div>
         ${post.getContent()}
     </div><br>
-    <img style="max-width: 400px ; max-height: 600px"  src="${post.getImage()}"><br><br>
-    <input type="submit" value="Delete">
+    <img style="max-width: 400px ; max-height: 600px" src="${post.getImage()}"><br><br>
+    <input type="submit" value="Xóa">
+    <a style="text-decoration: none ; border: 1px" href="/facebook?action=home&user_id=1" >Hủy</a>
+
 </form>
 </center>
 

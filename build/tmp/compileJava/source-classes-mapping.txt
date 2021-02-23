@@ -8,10 +8,10 @@ model/User.java
  model.User
 model/RelativeStatus.java
  model.RelativeStatus
-service/PostService.java
- service.PostService
 model/Post.java
  model.Post
+service/PostService.java
+ service.PostService
 service/IPost.java
  service.IPost
 controller/ServletPost.java

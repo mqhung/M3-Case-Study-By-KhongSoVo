@@ -8,6 +8,9 @@
 <a href="/facebook?action=create" >Bạn đang nghĩ gì?</a><br><br>
 <a href="facebook?action=home&user_id=1">trang cá nhân</a>
 <link rel="stylesheet" href="styles.css">
+
+
+    </select>
 </center>
 </body>
 </html>

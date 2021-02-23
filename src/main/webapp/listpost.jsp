@@ -13,16 +13,25 @@
 </head>
 <body>
 <center>
+    <a href="/facebook?action=create" >Bạn đang nghĩ gì?</a><br><br>
+
     <c:forEach items="${posts}" var="post">
         <H5>Nguyễn Văn Tú</H5>
         <div>
                 ${post.getContent()}
 
-            <a href="/facebook?action=delete&id=${post.getId()}">delete</a>
-            <a href="/facebook?action=edit&id=${post.getId()}">edit</a>
+            <a style="text-decoration: none" href="/facebook?action=delete&id=${post.getId()}">Xóa</a>
+            <a style="text-decoration: none" href="/facebook?action=edit&id=${post.getId()}">Sửa</a>
+<%--                    <select name="select" onchange="window.open(this.value, this.value)">--%>
+<%--                        <option value="">-Chọn-</option>--%>
+<%--                        <option value="/facebook?action=delete&id=${post.getId()}">Xóa</option>--%>
+<%--                        <option value="/facebook?action=edit&id=${post.getId()}">Sửa</option>--%>
+<%--                    </select>--%>
+
         </div>
+
         <br>
-        <img style="max-width: 700px ; max-height: 700px" src="${post.getImage()}"><br><br>
+        <img style="max-width: 400px ; max-height: 600px" src="${post.getImage()}"><br><br>
         <%--    <button name="button" type="button">Like</button><br><br>--%>
         <button>
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Bot%C3%B3n_Me_gusta.svg/1200px-Bot%C3%B3n_Me_gusta.svg.png"

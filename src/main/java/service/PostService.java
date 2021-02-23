@@ -114,4 +114,24 @@ public class PostService implements IPost {
         }
         return post;
     }
+
+    @Override
+    public List<Post> fillAll() {
+        List<Post> posts = new ArrayList<>();
+        Connection connection = getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from post  order by id desc ;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String content = resultSet.getString("content");
+                String image = resultSet.getString("image");
+                int user_id = resultSet.getInt("user_id");
+                posts.add(new Post(id, image, content, user_id));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return posts;
+    }
 }

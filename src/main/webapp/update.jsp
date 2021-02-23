@@ -13,11 +13,12 @@
 <body>
 <center>
 <form method="post">
-    <input type="text" name="content" value="${post.getContent()}">
-    <img style="max-width: 700px ; max-height: 700px"  src="${post.getImage()}"><br><br>
+    <input type="text" name="content" value="${post.getContent()}"><br><br>
+    <img style="max-width: 400px ; max-height: 600px" src="${post.getImage()}"><br><br>
 
     <input type="submit" value="Lưu">
-    <a href="/facebook?action=home&user_id=1" >Hủy</a>
+    <a style="text-decoration: none ; border: 1px" href="/facebook?action=home&user_id=1" >Hủy</a>
+
 </form>
 </center>
 </body>
