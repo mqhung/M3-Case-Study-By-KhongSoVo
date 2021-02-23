@@ -23,7 +23,7 @@ public class PostService implements IPost {
         } catch (SQLException throwables) {
             System.out.println("k ket noi dc");
         }
-        System.out.println("kn thanh cong");
+//        System.out.println("kn thanh cong");
         return connection;
     }
 
@@ -66,13 +66,12 @@ public class PostService implements IPost {
     @Override
     public Post updatePost(int id, Post post) {
         Connection connection = getConnection();
-        PreparedStatement preparedStatement = null;
+
         try {
-            preparedStatement = connection.prepareStatement("update post set content = ? where id = ?;");
+            PreparedStatement preparedStatement = connection.prepareStatement("update post set content = ? where id = ? ;");
             preparedStatement.setInt(2, id);
             preparedStatement.setString(1, post.getContent());
             preparedStatement.executeUpdate();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

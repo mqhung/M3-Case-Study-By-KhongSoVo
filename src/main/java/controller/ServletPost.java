@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.UUID;
 
 @MultipartConfig
 @WebServlet(name = "Servlet_post", value = "/facebook")
@@ -31,7 +32,7 @@ public class ServletPost extends HttpServlet {
             case "create":
                 createPost(request, response);
                 break;
-            case "update":
+            case "edit":
                 updatePost(request, response);
                 break;
             case "delete":
@@ -43,7 +44,7 @@ public class ServletPost extends HttpServlet {
 int id =Integer.parseInt(request.getParameter("id"));
 iPost.deletePost(id);
         try {
-            response.sendRedirect("/facebook?action=showAll&user_id=1");
+            response.sendRedirect("/facebook?action=home&user_id=1");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,12 +53,12 @@ iPost.deletePost(id);
     private void updatePost(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
         String content = request.getParameter("content");
-        String image = request.getParameter("image");
-        int user_id = Integer.parseInt(request.getParameter("user_id"));
-        Post post = new Post(id, image, content, user_id);
+//        String image = request.getParameter("image");
+//        int user_id = Integer.parseInt(request.getParameter("user_id"));
+        Post post = new Post(id, content);
         iPost.updatePost(id, post);
         try {
-            response.sendRedirect("/facebook");
+            response.sendRedirect("/facebook?action=home&user_id=1");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,7 +73,7 @@ iPost.deletePost(id);
             case "create":
                 showFormCreate(request, response);
                 break;
-            case "showAll":
+            case "home":
                 showAll(request, response);
                 break;
             case "edit":
@@ -81,14 +82,17 @@ iPost.deletePost(id);
             case "delete":
                 showFormDelete(request, response);
                 break;
+            default:
+                showAll(request,response);
         }
     }
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
         int id = Integer.parseInt(request.getParameter("id"));
         Post post = iPost.findById(id);
         request.setAttribute("post", post);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("updete.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("update.jsp");
+        requestDispatcher.forward(request, response);
         try {
             requestDispatcher.forward(request, response);
         } catch (ServletException e) {
@@ -129,42 +133,30 @@ iPost.deletePost(id);
     private void createPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int user_id = 1; //Integer.parseInt(request.getParameter("user_id"));
         String content = request.getParameter("content");
-
         Part part = request.getPart("image");
         String realPart = request.getServletContext().getRealPath("/image_post");
-        String fileName = part.getSubmittedFileName();
+        String fileName = UUID.randomUUID() + part.getSubmittedFileName();
 
         part.write(realPart + "/" + fileName);
 
         Post post = new Post(0, "image_post/" + fileName, content, user_id);
         iPost.createPost(post);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/listpost.jsp?action=showAll&user_id=" + user_id);
-        try {
-            requestDispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String redirectURL = "/facebook?action=home&user_id=" + user_id;
+        response.sendRedirect(redirectURL);
+
+//        RequestDispatcher requestDispatcher = request.re("/listpost.jsp?action=home&user_id=" + user_id);
+//        try {
+//            requestDispatcher.forward(request, response);
+//        } catch (ServletException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void showFormCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("create.jsp");
         requestDispatcher.forward(request, response);
     }
-
-//    private void showFormUpdate(HttpServletRequest request, HttpServletResponse response) {
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        String content = request.getParameter("content");
-//        String image = request.getParameter("image");
-//        String country = request.getParameter("country");
-//        Post post = new Post(id, image, content, 1);
-//        iPost.updatePost(id, post);
-//        try {
-//            response.sendRedirect("/post");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
 

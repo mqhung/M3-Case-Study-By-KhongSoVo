@@ -11,32 +11,33 @@
 <head>
     <title>List Post</title>
 </head>
-<body ><center>
-<h2>
-    <a href="/facebook?action=create" >Add New Post</a>
-</h2>
-<c:forEach items="${posts}" var="post">
-    <div>
-            ${post.getContent()}
-        <select>
-            <option><a href="/facebook?action=delete&id=${post.getId()}">delete</a></option>
-            <option><a href="/facebook?action=edit&id=${post.getId()}">edit</a></option>
-        </select>
-                <a href="/facebook?action=delete&id=${post.getId()}">delete</a>
-                <a href="/facebook?action=edit&id=${post.getId()}">edit</a>
-    </div><br>
-    <img style="max-width: 400px ; max-height: 600px"  src="${post.getImage()}"><br><br>
-<%--    <button name="button" type="button">Like</button><br><br>--%>
-    <button>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Bot%C3%B3n_Me_gusta.svg/1200px-Bot%C3%B3n_Me_gusta.svg.png" alt="" style="width:30px;height:30px;border:0;">
-    </button>
-    <button>
-        <img src="https://cdn0.iconfinder.com/data/icons/facebook-feature/32/facebook-13-512.png" alt="" style="width:30px;height:30px;border:0;">
-    </button>
-    <button>
-        <img src="https://banner2.cleanpng.com/20180704/jh/kisspng-computer-icons-share-icon-facebook-font-awesome-li-5b3c8caec6bde4.1051138415306948308141.jpg" alt="" style="width:30px;height:30px;border:0;">
-    </button>
-    <h6>-----------------------------------------------------------------------------------------------------------------------------</h6>
+<body>
+<center>
+    <c:forEach items="${posts}" var="post">
+        <H5>Nguyễn Văn Tú</H5>
+        <div>
+                ${post.getContent()}
+
+            <a href="/facebook?action=delete&id=${post.getId()}">delete</a>
+            <a href="/facebook?action=edit&id=${post.getId()}">edit</a>
+        </div>
+        <br>
+        <img style="max-width: 700px ; max-height: 700px" src="${post.getImage()}"><br><br>
+        <%--    <button name="button" type="button">Like</button><br><br>--%>
+        <button>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Bot%C3%B3n_Me_gusta.svg/1200px-Bot%C3%B3n_Me_gusta.svg.png"
+                 alt="" style="width:30px;height:30px;border:0;">
+        </button>
+        <button>
+            <img src="https://cdn0.iconfinder.com/data/icons/facebook-feature/32/facebook-13-512.png" alt=""
+                 style="width:30px;height:30px;border:0;">
+        </button>
+        <button>
+            <img src="https://banner2.cleanpng.com/20180704/jh/kisspng-computer-icons-share-icon-facebook-font-awesome-li-5b3c8caec6bde4.1051138415306948308141.jpg"
+                 alt="" style="width:30px;height:30px;border:0;">
+        </button>
+        <h6>
+            -----------------------------------------------------------------------------------------------------------------------------</h6>
     </c:forEach>
 </center>
 

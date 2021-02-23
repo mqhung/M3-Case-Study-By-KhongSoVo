@@ -2,16 +2,16 @@ model/Likes.java
  model.Likes
 model/RelationShip.java
  model.RelationShip
-model/RelativeStatus.java
- model.RelativeStatus
-model/User.java
- model.User
-model/Post.java
- model.Post
 storage/GetConnection.java
  storage.GetConnection
+model/User.java
+ model.User
+model/RelativeStatus.java
+ model.RelativeStatus
 service/PostService.java
  service.PostService
+model/Post.java
+ model.Post
 service/IPost.java
  service.IPost
 controller/ServletPost.java

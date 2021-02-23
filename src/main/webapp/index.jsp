@@ -4,7 +4,10 @@
     <title>$Title$</title>
 </head>
 <body>
-<a href="facebook?action=showAll&user_id=1">trang cá nhân</a>
+<center>
+<a href="/facebook?action=create" >Bạn đang nghĩ gì?</a><br><br>
+<a href="facebook?action=home&user_id=1">trang cá nhân</a>
 <link rel="stylesheet" href="styles.css">
+</center>
 </body>
 </html>

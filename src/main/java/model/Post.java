@@ -13,6 +13,11 @@ public class Post {
         this.user_id = user_id;
     }
 
+    public Post(int id, String content) {
+        this.id=id;
+        this.content = content;
+    }
+
     public int getId() {
         return id;
     }
