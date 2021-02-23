@@ -23,7 +23,7 @@
     </s:forEach>
 
 </table>
-<form>
+<form method="post">
     <textarea name="messContent" ></textarea>
     <input type="submit" value="send">
  </form>
