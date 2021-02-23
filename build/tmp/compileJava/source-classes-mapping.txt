@@ -14,13 +14,17 @@ model/User.java
  model.User
 model/Comment.java
  model.Comment
+model/Notice.java
+ model.Notice
+service/likesService/LikesService.java
+ service.likesService.LikesService
+service/PostService.java
+ service.PostService
+service/noticeService/NoticeService.java
+ service.noticeService.NoticeService
+service/commentService/CommentService.java
+ service.commentService.CommentService
 model/Post.java
  model.Post
 controller/ServletFacebook.java
  controller.ServletFacebook
-service/PostService.java
- service.PostService
-service/likesService/LikesService.java
- service.likesService.LikesService
-model/Notice.java
- model.Notice

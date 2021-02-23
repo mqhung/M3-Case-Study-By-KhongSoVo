@@ -35,7 +35,7 @@ public class CommentService {
         int rowEffect=0;
         Connection connection =GetConnection.getConnetion();
         try {
-            PreparedStatement preparedStatement=connection.prepareStatement("insert into(user_id,post_id,content ) comment values (?,?,?)");
+            PreparedStatement preparedStatement=connection.prepareStatement("insert into comment(user_id,post_id,content ) values (?,?,?)");
             preparedStatement.setInt(1,comment.getUser_id());
             preparedStatement.setInt(2,comment.getPost_id());
             preparedStatement.setString(3,comment.getContent());

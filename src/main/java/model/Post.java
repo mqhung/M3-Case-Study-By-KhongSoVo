@@ -1,6 +1,5 @@
 package model;
 
-import service.PostService;
 import service.commentService.CommentService;
 import service.likesService.LikesService;
 

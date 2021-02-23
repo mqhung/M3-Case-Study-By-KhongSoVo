@@ -4,11 +4,11 @@ import model.Comment;
 import model.Likes;
 import model.Notice;
 import model.Post;
-import service.IPostService;
-import service.PostService;
+import service.postService.PostService;
 import service.commentService.CommentService;
 import service.likesService.LikesService;
 import service.noticeService.NoticeService;
+import service.userService.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,6 +26,7 @@ public class ServletFacebook extends HttpServlet {
     private LikesService likesService=new LikesService();
     private CommentService commentService=new CommentService();
     private NoticeService noticeService=new NoticeService();
+    private UserService userService=new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -65,7 +66,6 @@ public class ServletFacebook extends HttpServlet {
         List<Post> list=postService.findAll();
         List<Notice> listNotice=noticeService.findNoticeByUser_id(user_id);
         int userId= Integer.parseInt(req.getParameter("id"));
-//        req.setAttribute("postService",postService);
         req.setAttribute("userId",userId);
         req.setAttribute("list",list);
         req.setAttribute("listNotice",listNotice);
@@ -102,7 +102,6 @@ public class ServletFacebook extends HttpServlet {
             Notice notice =new Notice(user_id,contentNotice);
             noticeService.creatNotice(notice);
         }
-
         try {
             resp.sendRedirect("/facebook?action=home&id="+userId);
         } catch (IOException e) {
