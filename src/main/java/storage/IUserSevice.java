@@ -1,2 +1,6 @@
-package storage;public interface IUserSevice {
+package storage;
+
+import model.User;
+
+public interface IUserSevice extends IGenaricSevice <User> {
 }
