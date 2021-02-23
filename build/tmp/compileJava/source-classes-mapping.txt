@@ -1,24 +1,36 @@
-model/Likes.java
- model.Likes
+service/postService/IPostService.java
+ service.postService.IPostService
 model/RelationShip.java
  model.RelationShip
-model/User.java
- model.User
-service/IService.java
- service.IService
+service/postService/IService.java
+ service.postService.IService
+model/Messeage.java
+ model.Messeage
+controller/ServletFacebook.java
+ controller.ServletFacebook
 model/RelativeStatus.java
  model.RelativeStatus
-service/IPostService.java
- service.IPostService
-storage/GetConnection.java
- storage.GetConnection
-model/Notice.java
- model.Notice
+model/Likes.java
+ model.Likes
+service/postService/PostService.java
+ service.postService.PostService
+service/userService/UserService.java
+ service.userService.UserService
+service/commentService/CommentService.java
+ service.commentService.CommentService
+model/User.java
+ model.User
+service/messeageService/MesseageService.java
+ service.messeageService.MesseageService
 model/Comment.java
  model.Comment
 model/Post.java
  model.Post
-controller/ServletFacebook.java
- controller.ServletFacebook
-service/PostService.java
- service.PostService
+storage/GetConnection.java
+ storage.GetConnection
+service/noticeService/NoticeService.java
+ service.noticeService.NoticeService
+service/likesService/LikesService.java
+ service.likesService.LikesService
+model/Notice.java
+ model.Notice

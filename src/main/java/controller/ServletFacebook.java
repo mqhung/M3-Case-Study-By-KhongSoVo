@@ -1,11 +1,12 @@
 package controller;
 
-import model.Comment;
-import model.Likes;
-import model.Notice;
-import model.Post;
-import service.IPostService;
-import service.PostService;
+import model.*;
+import service.messeageService.MesseageService;
+import service.postService.PostService;
+import service.commentService.CommentService;
+import service.likesService.LikesService;
+import service.noticeService.NoticeService;
+import service.userService.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +21,12 @@ import java.util.List;
 @WebServlet(name = "ServletFacebook", urlPatterns = "/facebook")
 public class ServletFacebook extends HttpServlet {
     private PostService postService=new PostService();
+    private LikesService likesService=new LikesService();
+    private CommentService commentService=new CommentService();
+    private NoticeService noticeService=new NoticeService();
+    private UserService userService=new UserService();
+    private MesseageService messeageService=new MesseageService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action=req.getParameter("action");
@@ -27,26 +34,43 @@ public class ServletFacebook extends HttpServlet {
         switch (action){
             case "home":
                 showAllPost(req,resp);
+                break;
             case "likes":
                 likePost(req,resp);
-
+                break;
+            case "messeage":
+                showFormMesseage(req,resp);
+                break;
 
         }
+    }
 
+    private void showFormMesseage(HttpServletRequest req, HttpServletResponse resp) {
+        int userId= Integer.parseInt(req.getParameter("userId"));
+        int friendId= Integer.parseInt(req.getParameter("friendId"));
+        List<Messeage> listMess=messeageService.findByTwoId(userId,friendId);
+        req.setAttribute("listMess",listMess);
+        RequestDispatcher dispatcher=req.getRequestDispatcher("messForm.jsp");
+        try {
+            dispatcher.forward(req,resp);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void likePost(HttpServletRequest req, HttpServletResponse resp) {
         int userId= Integer.parseInt(req.getParameter("userId"));
         int postId= Integer.parseInt(req.getParameter("postId"));
-        int id=(int) (Math.random()*1000000);
-        Likes like =new Likes(id,postId,userId);
-        int rowEffect =postService.creatLike(like);
+        Likes like =new Likes(postId,userId);
+        int rowEffect =likesService.creatLike(like);
         if (rowEffect>0){
-            int notice_id=(int) (Math.random()*1000000);
+            User user=userService.getById(userId);
             int user_id=postService.findById(postId).getUser_id();
-            String content="user id " + userId + " liked " + "post id "+postId;
-            Notice notice =new Notice(notice_id,user_id,content);
-            postService.creatNotice(notice);
+            String contentNotice="<img src=\""+user.getAvatar()+"\" width=\"50px\">" + user.getAccount() + " liked " + "post id "+postId;
+            Notice notice =new Notice(user_id,contentNotice);
+            noticeService.creatNotice(notice);
         }
         try {
             resp.sendRedirect("/facebook?action=home&id="+userId);
@@ -59,9 +83,10 @@ public class ServletFacebook extends HttpServlet {
     private void showAllPost(HttpServletRequest req, HttpServletResponse resp) {
         int user_id= Integer.parseInt(req.getParameter("id"));
         List<Post> list=postService.findAll();
-        List<Notice> listNotice=postService.findNoticeByUser_id(user_id);
+        List<User> listUser=userService.findAll();
+        List<Notice> listNotice=noticeService.findNoticeByUser_id(user_id);
         int userId= Integer.parseInt(req.getParameter("id"));
-        req.setAttribute("postService",postService);
+        req.setAttribute("listUser",listUser);
         req.setAttribute("userId",userId);
         req.setAttribute("list",list);
         req.setAttribute("listNotice",listNotice);
@@ -106,18 +131,16 @@ public class ServletFacebook extends HttpServlet {
     private void comment(HttpServletRequest req, HttpServletResponse resp) {
         int userId= Integer.parseInt(req.getParameter("userId"));
         int postId= Integer.parseInt(req.getParameter("postId"));
-        int id=(int) (Math.random()*1000000);
         String content=req.getParameter("content");
-        Comment comment=new Comment(id,userId,postId,content);
-        int rowEffect=postService.createComment(comment);
+        Comment comment=new Comment(userId,postId,content);
+        int rowEffect=commentService.createComment(comment);
         if (rowEffect>0){
-            int notice_id=(int) (Math.random()*1000000);
+            User user=userService.getById(userId);
             int user_id=postService.findById(postId).getUser_id();
-            String contentNotice="user id " + userId + " commented " + "post id "+postId;
-            Notice notice =new Notice(notice_id,user_id,contentNotice);
-            postService.creatNotice(notice);
+            String contentNotice="<img src=\""+user.getAvatar()+"\" width=\"50px\">" + user.getAccount() + " commented " + "post id "+postId;
+            Notice notice =new Notice(user_id,contentNotice);
+            noticeService.creatNotice(notice);
         }
-
         try {
             resp.sendRedirect("/facebook?action=home&id="+userId);
         } catch (IOException e) {

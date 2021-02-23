@@ -1,4 +1,4 @@
-package service;
+package service.postService;
 
 import java.util.List;
 

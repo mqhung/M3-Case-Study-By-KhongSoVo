@@ -1,19 +1,27 @@
 package model;
 
-public class Notice {
+import service.userService.UserService;
+
+public class Messeage {
     private int id;
     private int user_id;
+    private int friend_id;
     private String content;
 
-    public Notice(int user_id, String content) {
+    public Messeage(int id, int user_id, int friend_id, String content) {
+        this.id = id;
         this.user_id = user_id;
+        this.friend_id = friend_id;
         this.content = content;
     }
 
-    public Notice(int id, int user_id, String content) {
-        this.id = id;
+    public Messeage(int user_id, int friend_id, String content) {
         this.user_id = user_id;
+        this.friend_id = friend_id;
         this.content = content;
+    }
+    public String getAvatar(){
+        return new UserService().getById(user_id).getAvatar();
     }
 
     public int getId() {
@@ -32,6 +40,14 @@ public class Notice {
         this.user_id = user_id;
     }
 
+    public int getFriend_id() {
+        return friend_id;
+    }
+
+    public void setFriend_id(int friend_id) {
+        this.friend_id = friend_id;
+    }
+
     public String getContent() {
         return content;
     }
@@ -40,3 +56,4 @@ public class Notice {
         this.content = content;
     }
 }
+

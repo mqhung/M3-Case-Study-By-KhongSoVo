@@ -25,7 +25,7 @@
         <tr>
         <td><img src="${post.getImage()}"></td>
         <td>${post.getContent()}</td>
-        <td>${post.getLike()}</td>
+        <td>${post.getLikeAmount()}</td>
         <td><a href="facebook?action=likes&userId=${userId}&postId=${post.getId()}">like</a></td>
         <c:forEach items="${post.getListComment()}" var="comment">
 
@@ -36,6 +36,16 @@
              <input type="submit" value="Comment">
          </form></td>
         </tr>
+    </c:forEach>
+</table>
+<table>
+    <c:forEach items="${listUser}" var="user">
+        <tr>
+            <td><img src="${user.getAvatar()}" width="100px"></td>
+            <td>${user.getAccount()}</td>
+            <td><a href="/facebook?action=messeage&userId=${userId}&friendId=${user.getId()}">send messeage</a></td>
+        </tr>
+
     </c:forEach>
 </table>
 </body>
