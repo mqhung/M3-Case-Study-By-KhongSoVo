@@ -139,7 +139,7 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
         int rowEffect = userDAO.createRelative(relationShip);
         if (rowEffect > 0) {
             int notice_id = (int) (Math.random() * 1000);
-            String content = "User has id " + userId + "send invite request to user has id " + friendId
+            String content = "User has id " + userId + " send invite request to user has id " + friendId
                     + "<a href=\"/facebook?action=check&relationshipId=" + id + "&userId=" + userId
                     + "&friendId=" + friendId +"\"> Check Request</a>";
             Notice notice = new Notice(notice_id, friendId, content);

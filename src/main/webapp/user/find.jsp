@@ -27,8 +27,6 @@
     <div class="btn-group">
         <input type="submit" class="btn btn-primary" value="Find Friend">
     </div>
-<%--    <input type="text" name="friendId" placeholder="Input your user ID you wanna find">--%>
-<%--    <input type="submit" value="Find">--%>
 </form>
 <h3>Result</h3>
 <table>
