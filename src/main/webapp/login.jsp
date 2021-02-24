@@ -35,6 +35,7 @@
                     <input id="password" type="password" class="input" data-type="password" name="password">
                 </div>
                 <button class="btn btn-success">Login</button>
+                    <button class="btn btn-success">Register Account</button>
                 <div class="hr"></div>
             </div>
             </form>
