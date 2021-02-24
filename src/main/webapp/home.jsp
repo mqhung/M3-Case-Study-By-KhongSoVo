@@ -29,7 +29,7 @@
         <td>${post.getContent()}</td>
         <td>${post.getLikeAmount()}</td>
             <td><a href="/facebook?action=edit&userId=${userId}&postId=${post.getId()}">Edit</a></td>
-            <td><a href="/facebook?action=delete&postId=${post.getId()}">Delete</a></td>
+            <td><a href="/facebook?action=delete&userId=${userId}&postId=${post.getId()}">Delete</a></td>
         <td><a href="facebook?action=likes&userId=${userId}&postId=${post.getId()}">like</a></td>
         <c:forEach items="${post.getListComment()}" var="comment">
             <td><img src="${comment.getAvatar()}" width="30px"></td>

@@ -81,7 +81,6 @@ public class PostStatusService implements IPost {
 
     @Override
     public void deletePost(int id) {
-        {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = null;
             try {
@@ -91,7 +90,6 @@ public class PostStatusService implements IPost {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-        }
     }
 
     @Override

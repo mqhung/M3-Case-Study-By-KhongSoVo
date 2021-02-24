@@ -46,8 +46,22 @@ public class ServletFacebook extends HttpServlet {
                 break;
             case "edit":
                 showEditForm(req, resp);
-                break;    
+                break;
+            case "delete":
+                deletePost(req, resp);
+                break;
 
+        }
+    }
+
+    private void deletePost(HttpServletRequest req, HttpServletResponse resp) {
+        int postId = Integer.parseInt(req.getParameter("postId"));
+        int userId=Integer.parseInt(req.getParameter("userId"));
+        postService.delete(postId);
+        try {
+            resp.sendRedirect("/facebook?action=home&id="+userId);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -55,15 +69,23 @@ public class ServletFacebook extends HttpServlet {
         int postId = Integer.parseInt(req.getParameter("postId"));
         int userId=Integer.parseInt(req.getParameter("userId"));
         Post post = postService.findById(postId);
-        req.setAttribute("post", post);
-        req.setAttribute("userId",userId);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("update.jsp");
-        try {
-            requestDispatcher.forward(req, resp);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (post.getUser_id()==userId) {
+            req.setAttribute("post", post);
+            req.setAttribute("userId", userId);
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("update.jsp");
+            try {
+                requestDispatcher.forward(req, resp);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            try {
+                resp.sendRedirect("/facebook?action=home&id="+userId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

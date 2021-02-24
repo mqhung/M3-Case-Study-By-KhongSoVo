@@ -34,4 +34,14 @@ public class LikesService {
         }
         return rowEffect;
     }
+    public void deleteByPostId(int postId){
+        Connection connection=GetConnection.getConnetion();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement("delete from likes where post_id=?");
+            preparedStatement.setInt(1,postId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }
