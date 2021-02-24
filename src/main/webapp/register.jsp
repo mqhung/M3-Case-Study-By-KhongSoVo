@@ -32,15 +32,15 @@
       <form action="/register" method="post">
       <div class="form-group">
         <label for="usr">Name:</label>
-        <input required="true" type="text" class="form-control" id="usr" name="name"/>
+        <input placeholder="Name" required="true" type="text" class="form-control" id="usr" name="name"/>
       </div>
         <div class="form-group">
           <label for="account">Account:</label>
-          <input required="true" type="text" class="form-control" id="account" name="account"/>
+          <input placeholder="Account" required="true" type="text" class="form-control" id="account" name="account"/>
         </div>
       <div class="form-group">
         <label for="email">Email:</label>
-        <input required="true" type="email" class="form-control" id="email" name="email"/>
+        <input placeholder="Email" required="true" type="email" class="form-control" id="email" name="email"/>
       </div>
       <div class="form-group">
         <label for="birthday">Birthday:</label>
@@ -48,7 +48,7 @@
       </div>
         <div class="form-group">
           <label for="phoneNumber">Phone Number</label>
-          <input required="true" type="text" class="form-control" id="phoneNumber" name="phoneNumber"/>
+          <input placeholder="Phone Number" required="true" type="text" class="form-control" id="phoneNumber" name="phoneNumber"/>
         </div>
         <div class="form-group">
           <label for="avata">Avata</label>
@@ -56,15 +56,15 @@
         </div>
       <div class="form-group">
         <label for="pwd">Password:</label>
-        <input required="true" type="password" class="form-control" id="pwd" name="password"/>
+        <input placeholder="Password" required="true" type="password" class="form-control" id="pwd" name="password"/>
       </div>
       <div class="form-group">
         <label for="confirmation_pwd">Confirmation Password:</label>
-        <input required="true" type="password" class="form-control" id="confirmation_pwd" name="confirmation_pwd"/>
+        <input placeholder="Confirmation Password" required="true" type="password" class="form-control" id="confirmation_pwd" name="confirmation_pwd"/>
       </div>
       <div class="form-group">
         <label for="address">Address:</label>
-        <input type="text" class="form-control" id="address" name="address"/>
+        <input placeholder="Address" type="text" class="form-control" id="address" name="address"/>
       </div>
       <button class="btn btn-success">Register</button>
       </form>

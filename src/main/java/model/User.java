@@ -10,8 +10,12 @@ public class User {
     private String birthday;
     private int id;
 
+    public User(String account, String password) {
+        this.account = account;
+        this.password = password;
+    }
 
-    public User(int id,String account, String password, String email, String avatar, int phoneNumber, String address) {
+    public User(int id, String account, String password, String email, String avatar, int phoneNumber, String address) {
         this.id=id;
         this.account = account;
         this.password = password;

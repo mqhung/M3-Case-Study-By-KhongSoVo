@@ -33,11 +33,11 @@
             <form method="post">
                 <div class="form-group">
                     <label for="account">Account:</label>
-                    <input required="true" type="text" class="form-control" id="account" name="account"/>
+                    <input placeholder="Account" required="true" type="text" class="form-control" id="account" name="account"/>
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password:</label>
-                    <input required="true" type="password" class="form-control" id="pwd" name="password"/>
+                    <input placeholder="Password" required="true" type="password" class="form-control" id="pwd" name="password"/>
                 </div>
                 <button class="btn btn-success">Login</button>
             </form>

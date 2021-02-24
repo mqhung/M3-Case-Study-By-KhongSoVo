@@ -11,7 +11,7 @@ public class UserSevice implements IUserSevice{
         Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3308/humanmanagerment",
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3308/case_study",
                     "root",
                     "123456"
             );
@@ -36,7 +36,7 @@ public class UserSevice implements IUserSevice{
                 String account = resultSet.getString("account");
                 String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
-                String avata = resultSet.getString("avata");
+                String avata = resultSet.getString("avatar");
                 int phoneNumber = resultSet.getInt("phoneNumber");
                 String address = resultSet.getString("address");
 
