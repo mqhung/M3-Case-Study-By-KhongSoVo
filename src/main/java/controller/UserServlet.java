@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@javax.servlet.annotation.WebServlet(name = "UserServlet", urlPatterns = "/facebook")
+@javax.servlet.annotation.WebServlet(name = "UserServlet", urlPatterns = "/hung")
 public class UserServlet extends javax.servlet.http.HttpServlet {
     private UserDAO userDAO = new UserDAO();
 

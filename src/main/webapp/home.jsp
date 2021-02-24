@@ -59,6 +59,8 @@
                             <td>${user.getAccount()}</td>
                             <td><a href="/facebook?action=messeage&userId=${userId}&friendId=${user.getId()}">messeage</a></td>
                             <td><a href="/facebook?action=profile&userId=${userId}&proId=${user.getId()}">profile</a></td>
+                            <td ><a href="facebook?action=add&userId=${userId}&friendId=${user.getId()}">Add Friend</a></td>
+
                         </tr>
                     </li>
                     </c:forEach>

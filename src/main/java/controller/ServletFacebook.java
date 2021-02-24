@@ -7,6 +7,7 @@ import service.commentService.CommentService;
 import service.likesService.LikesService;
 import service.noticeService.NoticeService;
 import service.userService.UserService;
+import storage.UserDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,6 +27,7 @@ public class ServletFacebook extends HttpServlet {
     private NoticeService noticeService=new NoticeService();
     private UserService userService=new UserService();
     private MesseageService messeageService=new MesseageService();
+    private UserDAO userDAO = new UserDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -53,9 +55,92 @@ public class ServletFacebook extends HttpServlet {
             case "profile":
                 showProfile(req,resp);
                 break;
+            case "add":
+                addFriend(req, resp);
+                break;
+            case "check":
+                checkRequest(req, resp);
+                break;
+            case "accept":
+                acceptRequest(req, resp);
+                break;
+            case "deny":
+                denyRequest(req, resp);
+                break;
 
         }
     }
+    private void addFriend(HttpServletRequest request, HttpServletResponse response) {
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        int friendId = Integer.parseInt(request.getParameter("friendId"));
+        int id = (int) (Math.random() * 1000);
+        RelationShip relationShip = new RelationShip(id, userId, friendId, 1);
+        int rowEffect = userDAO.createRelative(relationShip);
+        if (rowEffect > 0) {
+            int notice_id = (int) (Math.random() * 1000);
+            String content = "User has id " + userId + " send invite request to user has id " + friendId
+                    + "<a href=\"/facebook?action=check&relationshipId=" + id + "&userId=" + userId
+                    + "&friendId=" + friendId +"\"> Check Request</a>";
+            Notice notice = new Notice(notice_id, friendId, content);
+            userDAO.createNotice(notice);
+        }
+        try {
+            response.sendRedirect("/facebook?action=home&id=" + userId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void checkRequest(HttpServletRequest request, HttpServletResponse response) {
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        int friendId = Integer.parseInt(request.getParameter("friendId"));
+        int relationshipId = Integer.parseInt(request.getParameter("relationshipId"));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("user/check.jsp");
+        request.setAttribute("userId", userId);
+        request.setAttribute("friendId", friendId);
+        request.setAttribute("relationshipId", relationshipId);
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void acceptRequest(HttpServletRequest request, HttpServletResponse response) {
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        int friendId = Integer.parseInt(request.getParameter("friendId"));
+        int relationshipId = Integer.parseInt(request.getParameter("relationshipId"));
+        int rowEffect = userDAO.editRelationship(2,relationshipId);
+        if (rowEffect > 0) {
+            int notice_id = (int) (Math.random() * 1000);
+            String content = "User has id " + friendId + " accepted request";
+            Notice notice = new Notice(notice_id, userId, content);
+            userDAO.createNotice(notice);
+        }
+        try {
+            response.sendRedirect("/facebook?action=home&id=" + friendId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void denyRequest(HttpServletRequest request, HttpServletResponse response) {
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        int friendId = Integer.parseInt(request.getParameter("friendId"));
+        int relationshipId = Integer.parseInt(request.getParameter("relationshipId"));
+        int rowEffect = userDAO.editRelationship(3,relationshipId);
+        if (rowEffect > 0) {
+            int notice_id = (int) (Math.random() * 1000);
+            String content = "User has id " + friendId + " deny request";
+            Notice notice = new Notice(notice_id, userId, content);
+            userDAO.createNotice(notice);
+        }
+        try {
+            response.sendRedirect("/facebook?action=home&id=" + friendId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void showProfile(HttpServletRequest req, HttpServletResponse resp) {
         int userId=Integer.parseInt(req.getParameter("userId"));

@@ -25,18 +25,8 @@ public class UserDAO implements IUser {
 
 
     public static Connection getConnetion() {
-        Connection connection = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(url, user, password);
-        } catch (ClassNotFoundException e) {
-            System.out.println("không có driver");
-        } catch (SQLException throwables) {
-            System.out.println("Không kết nối được");
-        }
-        System.out.println("kết nối thành công");
+      return GetConnection.getConnetion();
 
-        return connection;
     }
 
     @Override
