@@ -10,40 +10,47 @@
 <html>
 <head>
     <title>Registation Form</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h2 class="text-center">Login Form</h2>
-            <h4 style="color: red">${msg}</h4>
-        </div>
-        <div class="panel-body">
-            <form method="post">
-                <div class="form-group">
-                    <label for="account">Account:</label>
-                    <input placeholder="Account" required="true" type="text" class="form-control" id="account" name="account"/>
+<div class="login-wrap">
+    <div class="login-html">
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Login</label>
+        <input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab">Forgot Password</label>
+        <div class="login-form">
+            <div class="sign-in-htm">
+                <div class="panel-heading">
+                    <h4 style="color: red">${msg}</h4>
                 </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input placeholder="Password" required="true" type="password" class="form-control" id="pwd" name="password"/>
+                <form action="/login" method="post">
+                <div class="group">
+                    <label for="account" class="label">Account</label>
+                    <input id="account" type="text" class="input" name="account">
+                </div>
+                <div class="group">
+                    <label for="password" class="label">Password</label>
+                    <input id="password" type="password" class="input" data-type="password" name="password">
                 </div>
                 <button class="btn btn-success">Login</button>
+                <div class="hr"></div>
+            </div>
             </form>
+            <div class="for-pwd-htm">
+                <div class="group">
+                    <label for="user" class="label">A</label>
+                    <input id="user" type="text" class="input">
+                </div>
+                <div class="group">
+                    <input type="submit" class="button" value="Reset Password">
+                </div>
+                <div class="hr"></div>
+            </div>
         </div>
     </div>
 </div>
+
 </body>
 </html>
