@@ -35,6 +35,17 @@
             </tr>
         </c:forEach>
     </table>
+    <br> <br> <br>
+    <center>
+            <table>
+                <c:forEach items="${listNotice}" var="notice">
+                    <tr>
+                        <td>${notice.getContent()}></td>
+                    </tr>
+                </c:forEach>
+            </table>
+    </center>
+
 </div>
 </body>
 </html>

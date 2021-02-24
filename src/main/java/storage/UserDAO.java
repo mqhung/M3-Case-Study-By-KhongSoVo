@@ -16,6 +16,9 @@ public class UserDAO implements IUser {
     private static final String FIND_FRIEND_BY_ID = "select * from user where id = ?;";
     public static final String INSERT_RELATIONSHIP = "insert into relationship values (?,?,?,?);";
     public static final String SELECT_ALL_NOTICE_BY_ID = "select * from notice where user_id=?;";
+    public static final String CREATE_NOTICE = "insert into notice values (?,?,?)";
+    public static final String UPDATE_NOTICE = "update notice set content = ? where user_id = ?;";
+    public static final String UPDATE_RELATIVE = "update relationship set relative_status_id = ? where id = ?;";
 
     public UserDAO() {
     }
@@ -101,7 +104,7 @@ public class UserDAO implements IUser {
     public void createNotice(Notice notice) {
         Connection connection = getConnetion();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("insert into notice values (?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement(CREATE_NOTICE);
             preparedStatement.setInt(1, notice.getId());
             preparedStatement.setInt(2, notice.getUser_id());
             preparedStatement.setString(3, notice.getContent());
@@ -129,5 +132,32 @@ public class UserDAO implements IUser {
             throwables.printStackTrace();
         }
         return list;
+    }
+
+    public void editNotice(Notice notice) {
+        Connection connection = getConnetion();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(UPDATE_NOTICE);
+            preparedStatement.setString(1, notice.getContent());
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public int editRelationship(int relativeId, int id) {
+        int rowEffect = 0;
+        Connection connection = getConnetion();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(UPDATE_RELATIVE);
+            preparedStatement.setInt(1,relativeId);
+            preparedStatement.setInt(2,id);
+            rowEffect = preparedStatement.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return rowEffect;
     }
 }

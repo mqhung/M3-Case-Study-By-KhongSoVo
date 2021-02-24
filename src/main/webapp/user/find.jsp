@@ -28,12 +28,5 @@
         <td><a href="facebook?action=add&userId=${userId}&friendId=${friendId}">Add Friend</a></td>
     </tr>
 </table>
-<table>
-    <c:forEach items="${listNotice}" var="notice">
-        <tr>
-            <td>${notice.getContent()}</td>
-        </tr>
-    </c:forEach>
-</table>
 </body>
 </html>
