@@ -13,41 +13,27 @@
 </head>
 <body>
 <center>
-    <a href="/facebook?action=create" >Bạn đang nghĩ gì?</a><br><br>
-
-    <c:forEach items="${posts}" var="post">
-        <H5>Nguyễn Văn Tú</H5>
-        <div>
-                ${post.getContent()}
-
-            <a style="text-decoration: none" href="/facebook?action=delete&id=${post.getId()}">Xóa</a>
-            <a style="text-decoration: none" href="/facebook?action=edit&id=${post.getId()}">Sửa</a>
-<%--                    <select name="select" onchange="window.open(this.value, this.value)">--%>
-<%--                        <option value="">-Chọn-</option>--%>
-<%--                        <option value="/facebook?action=delete&id=${post.getId()}">Xóa</option>--%>
-<%--                        <option value="/facebook?action=edit&id=${post.getId()}">Sửa</option>--%>
-<%--                    </select>--%>
-
-        </div>
-
-        <br>
-        <img style="max-width: 400px ; max-height: 600px" src="${post.getImage()}"><br><br>
-        <%--    <button name="button" type="button">Like</button><br><br>--%>
-        <button>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Bot%C3%B3n_Me_gusta.svg/1200px-Bot%C3%B3n_Me_gusta.svg.png"
-                 alt="" style="width:30px;height:30px;border:0;">
-        </button>
-        <button>
-            <img src="https://cdn0.iconfinder.com/data/icons/facebook-feature/32/facebook-13-512.png" alt=""
-                 style="width:30px;height:30px;border:0;">
-        </button>
-        <button>
-            <img src="https://banner2.cleanpng.com/20180704/jh/kisspng-computer-icons-share-icon-facebook-font-awesome-li-5b3c8caec6bde4.1051138415306948308141.jpg"
-                 alt="" style="width:30px;height:30px;border:0;">
-        </button>
-        <h6>
-            -----------------------------------------------------------------------------------------------------------------------------</h6>
-    </c:forEach>
+    <a href="/facebook?action=home&id=${userId}">HOME</a>
+    <table>
+        <c:forEach items="${list}" var="post">
+            <tr>
+                <td><img src="${post.getImage()}"></td>
+                <td>${post.getContent()}</td>
+                <td>${post.getLikeAmount()}</td>
+                <td><a href="/facebook?action=edit&userId=${userId}&postId=${post.getId()}">Edit</a></td>
+                <td><a href="/facebook?action=delete&userId=${userId}&postId=${post.getId()}">Delete</a></td>
+                <td><a href="facebook?action=likes&userId=${userId}&postId=${post.getId()}">like</a></td>
+                <c:forEach items="${post.getListComment()}" var="comment">
+                    <td><img src="${comment.getAvatar()}" width="30px"></td>
+                    <td>${comment.getContent()}</td>
+                </c:forEach>
+                <td><form method="post" action="/facebook?action=comment&userId=${userId}&postId=${post.getId()}">
+                    <textarea name="content"></textarea>
+                    <input type="submit" value="Comment">
+                </form></td>
+            </tr>
+        </c:forEach>
+    </table>
 </center>
 
 </body>

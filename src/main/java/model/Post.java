@@ -2,6 +2,7 @@ package model;
 
 import service.commentService.CommentService;
 import service.likesService.LikesService;
+import service.userService.UserService;
 
 import java.util.List;
 
@@ -28,6 +29,21 @@ public class Post {
     }
     public int getLikeAmount(){
         return LikesService.getLikeAmount(id);
+    }
+    public int getCommentAmount(){
+        return getListComment().size();
+    }
+    public User getUser(){
+        return new UserService().getById(user_id);
+    }
+    public String getUserAvatar(){
+        return getUser().getAvatar();
+    }
+    public String getUserAcount(){
+        return getUser().getAccount();
+    }
+    public String getUserEmail(){
+        return getUser().getEmail();
     }
 
     public Post(int id, String content) {

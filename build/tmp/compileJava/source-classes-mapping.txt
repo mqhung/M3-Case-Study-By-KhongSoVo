@@ -8,35 +8,35 @@ service/postService/IService.java
  service.postService.IService
 model/Messeage.java
  model.Messeage
-service/IPost.java
- service.IPost
+service/likesService/LikesService.java
+ service.likesService.LikesService
 service/noticeService/NoticeService.java
  service.noticeService.NoticeService
 model/RelativeStatus.java
  model.RelativeStatus
 model/Likes.java
  model.Likes
-controller/ServletPost.java
- controller.ServletPost
+model/Comment.java
+ model.Comment
 service/userService/UserService.java
  service.userService.UserService
-service/PostStatusService.java
- service.PostStatusService
+service/commentService/CommentService.java
+ service.commentService.CommentService
 model/User.java
  model.User
 storage/GetConnection.java
  storage.GetConnection
 service/messeageService/MesseageService.java
  service.messeageService.MesseageService
-model/Comment.java
- model.Comment
 service/postService/PostService.java
  service.postService.PostService
-service/commentService/CommentService.java
- service.commentService.CommentService
+controller/ServletPost.java
+ controller.ServletPost
+service/PostStatusService.java
+ service.PostStatusService
 model/Post.java
  model.Post
+service/IPost.java
+ service.IPost
 controller/ServletFacebook.java
  controller.ServletFacebook
-service/likesService/LikesService.java
- service.likesService.LikesService

@@ -50,20 +50,49 @@ public class ServletFacebook extends HttpServlet {
             case "delete":
                 deletePost(req, resp);
                 break;
+            case "profile":
+                showProfile(req,resp);
+                break;
 
         }
+    }
+
+    private void showProfile(HttpServletRequest req, HttpServletResponse resp) {
+        int userId=Integer.parseInt(req.getParameter("userId"));
+        int proId=Integer.parseInt(req.getParameter("proId"));
+        List<Post> list=postService.fillAll(proId);
+        req.setAttribute("userId",userId);
+        req.setAttribute("list",list);
+        RequestDispatcher dispatcher=req.getRequestDispatcher("listpost.jsp");
+        try {
+            dispatcher.forward(req,resp);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void deletePost(HttpServletRequest req, HttpServletResponse resp) {
         int postId = Integer.parseInt(req.getParameter("postId"));
         int userId=Integer.parseInt(req.getParameter("userId"));
-        likesService.deleteByPostId(postId);
-        commentService.deleteByPostId(postId);
-        postService.delete(postId);
-        try {
-            resp.sendRedirect("/facebook?action=home&id="+userId);
-        } catch (IOException e) {
-            e.printStackTrace();
+        Post post=postService.findById(postId);
+        if (userId==post.getUser_id()) {
+            likesService.deleteByPostId(postId);
+            commentService.deleteByPostId(postId);
+            postService.delete(postId);
+            try {
+                resp.sendRedirect("/facebook?action=home&id=" + userId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            try {
+                resp.sendRedirect("/facebook?action=home&id=" + userId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -141,10 +170,12 @@ public class ServletFacebook extends HttpServlet {
 
     private void showAllPost(HttpServletRequest req, HttpServletResponse resp) {
         int user_id= Integer.parseInt(req.getParameter("id"));
+        User user=userService.getById(user_id);
         List<Post> list=postService.findAll();
         List<User> listUser=userService.findAll();
         List<Notice> listNotice=noticeService.findNoticeByUser_id(user_id);
         int userId= Integer.parseInt(req.getParameter("id"));
+        req.setAttribute("user",user);
         req.setAttribute("listUser",listUser);
         req.setAttribute("userId",userId);
         req.setAttribute("list",list);
