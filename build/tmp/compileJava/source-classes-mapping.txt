@@ -16,27 +16,27 @@ model/RelativeStatus.java
  model.RelativeStatus
 model/Likes.java
  model.Likes
-service/likesService/LikesService.java
- service.likesService.LikesService
+controller/ServletPost.java
+ controller.ServletPost
 service/userService/UserService.java
  service.userService.UserService
-service/commentService/CommentService.java
- service.commentService.CommentService
+service/PostStatusService.java
+ service.PostStatusService
 model/User.java
  model.User
-service/postService/PostService.java
- service.postService.PostService
+storage/GetConnection.java
+ storage.GetConnection
 service/messeageService/MesseageService.java
  service.messeageService.MesseageService
 model/Comment.java
  model.Comment
+service/postService/PostService.java
+ service.postService.PostService
+service/commentService/CommentService.java
+ service.commentService.CommentService
 model/Post.java
  model.Post
-storage/GetConnection.java
- storage.GetConnection
-controller/ServletPost.java
- controller.ServletPost
-service/PostStatusService.java
- service.PostStatusService
 controller/ServletFacebook.java
  controller.ServletFacebook
+service/likesService/LikesService.java
+ service.likesService.LikesService

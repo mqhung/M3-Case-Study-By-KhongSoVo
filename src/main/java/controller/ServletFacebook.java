@@ -57,6 +57,8 @@ public class ServletFacebook extends HttpServlet {
     private void deletePost(HttpServletRequest req, HttpServletResponse resp) {
         int postId = Integer.parseInt(req.getParameter("postId"));
         int userId=Integer.parseInt(req.getParameter("userId"));
+        likesService.deleteByPostId(postId);
+        commentService.deleteByPostId(postId);
         postService.delete(postId);
         try {
             resp.sendRedirect("/facebook?action=home&id="+userId);

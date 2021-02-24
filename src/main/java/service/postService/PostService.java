@@ -1,6 +1,8 @@
 package service.postService;
 
 import model.Post;
+import service.commentService.CommentService;
+import service.likesService.LikesService;
 import storage.GetConnection;
 
 import java.sql.*;
