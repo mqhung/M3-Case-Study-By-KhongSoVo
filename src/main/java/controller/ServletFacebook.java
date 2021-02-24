@@ -14,10 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 
 @WebServlet(name = "ServletFacebook", urlPatterns = "/facebook")
@@ -46,7 +44,26 @@ public class ServletFacebook extends HttpServlet {
             case "create":
                 showFormCreate(req, resp);
                 break;
+            case "edit":
+                showEditForm(req, resp);
+                break;    
 
+        }
+    }
+
+    private void showEditForm(HttpServletRequest req, HttpServletResponse resp) {
+        int postId = Integer.parseInt(req.getParameter("postId"));
+        int userId=Integer.parseInt(req.getParameter("userId"));
+        Post post = postService.findById(postId);
+        req.setAttribute("post", post);
+        req.setAttribute("userId",userId);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("update.jsp");
+        try {
+            requestDispatcher.forward(req, resp);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -132,8 +149,25 @@ public class ServletFacebook extends HttpServlet {
             case "create":
                 createPost(req, resp);
                 break;
+            case "edit":
+                updatePost(req, resp);
+                break;
         }
 
+    }
+
+    private void updatePost(HttpServletRequest req, HttpServletResponse resp) {
+        int postId = Integer.parseInt(req.getParameter("postId"));
+        int userId=Integer.parseInt(req.getParameter("userId"));
+        String content = req.getParameter("content");
+        Post post=postService.findById(postId);
+        post.setContent(content);
+        postService.update(post);
+        try {
+            resp.sendRedirect("/facebook?action=home&id="+userId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{

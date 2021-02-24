@@ -21,13 +21,15 @@
     </c:forEach>
 </table>
 <a href="/facebook?action=create&userId=${userId}" >Bạn đang nghĩ gì?</a><br><br>
-<a style="text-decoration: none ; border: 1px" href="/facebook?action=profile&user_id=${userId}" >Trang cá nhân</a>
+<a style="text-decoration: none ; border: 1px" href="/facebook?action=profile&userId=${userId}" >Trang cá nhân</a>
 <table>
     <c:forEach items="${list}" var="post">
         <tr>
         <td><img src="${post.getImage()}"></td>
         <td>${post.getContent()}</td>
         <td>${post.getLikeAmount()}</td>
+            <td><a href="/facebook?action=edit&userId=${userId}&postId=${post.getId()}">Edit</a></td>
+            <td><a href="/facebook?action=delete&postId=${post.getId()}">Delete</a></td>
         <td><a href="facebook?action=likes&userId=${userId}&postId=${post.getId()}">like</a></td>
         <c:forEach items="${post.getListComment()}" var="comment">
             <td><img src="${comment.getAvatar()}" width="30px"></td>
