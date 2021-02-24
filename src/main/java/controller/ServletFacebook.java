@@ -136,18 +136,13 @@ public class ServletFacebook extends HttpServlet {
 
     }
 
-    private void createPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
+    private void createPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
         int user_id = Integer.parseInt(req.getParameter("userId"));
         String content = req.getParameter("content");
-        Part part = req.getPart("image");
-        String realPart = req.getServletContext().getRealPath("/image_post");
-        String fileName = UUID.randomUUID() + part.getSubmittedFileName();
-
-        part.write( realPart+"/" + fileName);
-
-        Post post = new Post( "image_post/" + fileName, content, user_id);
+        String image=req.getParameter("image");
+        Post post = new Post( image, content, user_id);
         postService.create(post);
-        String redirectURL = "/facebook?action=home&user_id=" + user_id;
+        String redirectURL = "/facebook?action=home&id=" + user_id;
         resp.sendRedirect(redirectURL);
     }
 

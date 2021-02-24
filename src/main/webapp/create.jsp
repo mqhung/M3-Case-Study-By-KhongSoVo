@@ -11,17 +11,15 @@
     <title>New Post</title>
 </head>
 <body><center>
-<form method="post" enctype="multipart/form-data">
+<form method="post" >
     <h3>Bạn đang nghĩ gì?</h3>
     <input type="text" name ="content" placeholder="Bạn đang nghĩ gì?"/><br><br>
-    <input type="file" name="image" placeholder="image"/><br><br>
+    <input type="text" name="image" placeholder="image"/><br><br>
 
     <input type="submit" value="Đăng">
     <input type="reset" value="Reset">
     <a style="text-decoration: none " href="/facebook?action=home&id=${userId}" >Hủy</a>
 
 </form>
-<%--    <a href="/facebook?action=home&user_id=1" >Back To List</a>--%>
-
 </center></body>
 </html>
