@@ -63,7 +63,7 @@ public class ServletFacebook extends HttpServlet {
         List<Post> list=postService.fillAll(proId);
         req.setAttribute("userId",userId);
         req.setAttribute("list",list);
-        RequestDispatcher dispatcher=req.getRequestDispatcher("listpost.jsp");
+        RequestDispatcher dispatcher=req.getRequestDispatcher("listProfile.jsp");
         try {
             dispatcher.forward(req,resp);
         } catch (ServletException e) {
