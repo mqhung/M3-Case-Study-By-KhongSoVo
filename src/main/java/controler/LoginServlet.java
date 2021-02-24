@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Response;
 import java.io.IOException;
 import java.util.List;
 
@@ -21,7 +20,6 @@ public class LoginServlet extends HttpServlet {
         String account = request.getParameter("account");
         String password = request.getParameter("password");
 
-//        User user = (User) request.getSession(false).getAttribute("user");
         User user = new User(account,password);
         List<User> userList = userSevice.findAll();
         boolean check = false;
@@ -30,7 +28,6 @@ public class LoginServlet extends HttpServlet {
         for (User p:userList) {
             if( account.equals(p.getAccount()) && password.equals(p.getPassword()) ){
                 userId = p.getId();
-
                 check = true;
                 break;
             }
@@ -43,10 +40,6 @@ public class LoginServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
             requestDispatcher.forward(request, response);
         }
-
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("register.jsp");
-        requestDispatcher.forward(request, response);
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

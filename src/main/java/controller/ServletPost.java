@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @MultipartConfig
-@WebServlet(name = "Servlet_post", value = "/")
+@WebServlet(name = "Servlet_post", value = "/tu")
 public class ServletPost extends HttpServlet {
     private final IPost iPost = new PostStatusService();
 

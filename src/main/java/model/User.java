@@ -9,6 +9,11 @@ public class User {
     private int phoneNumber;
     private String address;
 
+    public User(String account, String password) {
+        this.account = account;
+        this.password = password;
+    }
+
     public User(String account, String password, String email, String avatar, int phoneNumber, String address) {
         this.account = account;
         this.password = password;

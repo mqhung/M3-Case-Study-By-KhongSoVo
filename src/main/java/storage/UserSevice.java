@@ -8,20 +8,7 @@ import java.util.List;
 
 public class UserSevice implements IUserSevice{
     protected Connection getConnection() {
-        Connection connection = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3308/case_study",
-                    "root",
-                    "123456"
-            );
-        } catch (ClassNotFoundException e) {
-            System.out.println("không có driver");
-        } catch (SQLException throwables) {
-            System.out.println("Không kết nối được");
-        }
-        System.out.println("ket noi thanh cong");
-        return connection;
+       return GetConnection.getConnetion();
     }
 
     @Override
